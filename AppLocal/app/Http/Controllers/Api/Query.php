@@ -131,7 +131,7 @@ class Query extends Controller
             ->select(DB::raw("SUM(assessment.amt2) as totalBill"))
             ->where([['assessment.semId', '=', $sem],['sy.sy','=', $sy],['assessment.ssi_id', '=', $ssi_id]])
             ->get()[0]->totalBill;
-            return response()->json(array('totalBill'=>$sy[2].$sy[3]));
+            return response()->json(array('totalBill'=>$Amount));
         }catch(Exception $e){}
     }
 
