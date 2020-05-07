@@ -1,0 +1,13 @@
+.modal.fade.in{
+    padding-right: 0px !important;}
+.modal-dialog {
+    padding-top: 25px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    width: 500px;}
+.modal-header {
+    background-color: #607D8B !important;
+    padding:16px 16px;
+    color:#FFF;
+    border-bottom:2px dashed #607D8B;} 

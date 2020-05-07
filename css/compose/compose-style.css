@@ -1,0 +1,20 @@
+#send_btn{
+	border-color: #607d8b;}
+
+.new_message,
+.messages{
+	padding: 0px;
+	margin: 0px;}
+.messages{
+	border: 2px;
+	border-color: black !important;}
+
+input[name="email_account"],
+textarea[name="message"]{
+	border-radius: 0px;
+	box-shadow: none;
+	resize: none;}
+
+textarea[name="message"]{	
+	min-height: 200px;
+	max-height: 100%;}

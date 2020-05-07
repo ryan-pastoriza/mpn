@@ -1,0 +1,76 @@
+/*body{
+    background: url(../../images/image-gallery/3.jpg) no-repeat center center fixed;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+}
+
+body .wrap{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    background-color: rgba(0, 0, 0, 0.79);
+    z-index: 9999;
+}*/
+/* Login Page ================================== */
+/*.login-box{
+    width: 340px;
+    margin: 50px auto;
+    border-radius: 2%;
+    border: none;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+    .login-box .card{
+        background-color: none;
+        margin-top: 50px;}
+    .login-box .panel-group{
+        background-color: transparent;}
+    .login-box .panel-group .panel{
+        margin-top: 15%;
+        border-radius: 2%;
+        border-top: none;
+        opacity: 0.8;
+        border-color:#607D8B;}
+    .login-box .panel-header{
+        padding: 2px;
+        border: none;
+        border-color: #607D8B;
+        border-top-left-radius: 2%;
+        border-top-right-radius: 2%;
+        background-color: #607D8B;}
+    .login-box input[type="text"], input[type="password"]{
+        height: 40px;
+        background-color:transparent;}
+    .login-page .login-box .logo .avatar{
+        width: 160px;
+        height: 160px;    
+        margin-top: 50px;}
+    .login-page .login-box .logo a{
+        color: white;
+        font-size: 20px;
+    }
+    .login-page .login-box .logo small{
+        color: white;
+        font-size: 15px;
+    }*/
+.login-box{
+    width: 340px;
+    margin: 50px auto;
+    border: none;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.3);
+    }
+    .login-page .login-box .logo .avatar{
+        width: 160px;
+        height: 160px;    
+        margin-top: 50px;}
+    .login-page .login-box .logo a{
+        color: #02a1f4;
+        font-size: 20px;}
+    .login-box input[type="text"], input[type="password"]{
+        height: 40px;
+        background-color:transparent;}
