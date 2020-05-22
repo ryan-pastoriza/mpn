@@ -13,18 +13,27 @@ class Search{
 			console.log(data);
 			if (data['PromissoryNote'].length !=0){
 				var html="";
+				var semester,term;
 				for (var i = 0; i < data['PromissoryNote'].length; i++) {
 					var date_filed =new Date(data['PromissoryNote'][i].created_at);
+					var date_promised= new Date(data['PromissoryNote'][i].pn_date_promised);
+					if(data['PromissoryNote'][i].pn_semester=='1'){semester = '1st Semester';}
+					else if(data['PromissoryNote'][i].pn_semester=='2'){semester = '2nd Semester';}
+
+					if(data['PromissoryNote'][i].pn_term=='1'){term = 'Prelim';}
+					else if(data['PromissoryNote'][i].pn_term=='2'){term = 'Midterm';}
+					else if(data['PromissoryNote'][i].pn_term=='3'){term = 'Prefinal';}
+					else if(data['PromissoryNote'][i].pn_term=='4'){term = 'Final';}
 					html+='<tr>'+
 	                        '<th scope="row">'+(i+1)+'</th>'+
 	                        '<td>'+data['PromissoryNote'][i].pn_tracking_num+'</td>'+
 							'<td>'+data['PromissoryNote'][i].pn_ssi_id+'</td>'+
 							'<td>'+data['PromissoryNote'][i].pn_amount_promised+'</td>'+
-							'<td>'+date_filed.getFullYear()+"-"+date_filed.getMonth()+"-"+date_filed.getDate()+'</td>'+
-							'<td>'+data['PromissoryNote'][i].pn_date_promised+'</td>'+
+							'<td>'+date_filed.getMonth()+"-"+date_filed.getDate()+"-"+date_filed.getFullYear()+'</td>'+
+							'<td>'+date_promised.getMonth()+"-"+date_promised.getDate()+"-"+date_promised.getFullYear()+'</td>'+
 							'<td>'+data['PromissoryNote'][i].pn_remarks+'</td>'+
-							'<td>'+data['PromissoryNote'][i].pn_semester+'</td>'+
-							'<td>'+data['PromissoryNote'][i].pn_term+'</td>'+
+							'<td>'+semester+'</td>'+
+							'<td>'+term+'</td>'+
 							'<td>'+data['PromissoryNote'][i].pn_school_yr+'</td>'+
 						'</tr>\n';
 				}

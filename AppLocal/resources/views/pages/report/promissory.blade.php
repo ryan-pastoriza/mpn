@@ -45,43 +45,42 @@
                             </a>
                         </li>
                         <li>
-                            <input list="name" type="text" class="form-control" name="student_name" id="student_name" placeholder="Search student...">
-                            <datalist id="name">
-                            </datalist>
-                        </li>
-                        <li>
-                            <input list="sy" type="text" class="form-control" name="school_year" id="school_year" placeholder="Search school year...">
-                            <datalist id="sy">
-                            </datalist>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">    
+                                    <input list="name" type="text" class="form-control" name="student_name" id="student_name" placeholder="Search student...">
+                                    <datalist id="name">
+                                    </datalist>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    
+                                    <input list="sy" type="text" class="form-control" name="school_year" id="school_year" placeholder="Search school year...">
+                                    <datalist id="sy">
+                                    </datalist>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
                 <div class="body">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="card">
-                                <div id="g_table" class="body table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Promissory Number</th>
-                                                <th>Name</th>
-                                                <th>Amount Promissed</th>
-                                                <th>Date Filed</th>
-                                                <th>Accomplishment Date</th>
-                                                <th>Remarks</th>
-                                                <th>Semester</th>
-                                                <th>Term</th>
-                                                <th>School Year</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="promissory_table"></tbody>
-                                    </table>
-                                    <center><span id="message" style="color: red; font-family: roboto;font-weight: bold;"></span></center>
-                                </div>
-                            </div>
-                        </div>
+                     <div id="g_table" class="body table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Promissory Number</th>
+                                    <th>Name</th>
+                                    <th>Amount Promissed</th>
+                                    <th>Date Filed</th>
+                                    <th>Accomplishment Date</th>
+                                    <th>Remarks</th>
+                                    <th>Semester</th>
+                                    <th>Term</th>
+                                    <th>School Year</th>
+                                </tr>
+                            </thead>
+                            <tbody id="promissory_table"></tbody>
+                        </table>
+                        <center><span id="message" style="color: red; font-family: roboto;font-weight: bold;"></span></center>
                     </div>
                 </div>
             </div>

@@ -263,7 +263,7 @@ class Query extends Controller
                 }
             }
         }
-        return $stats;
+        return $PNStatistics;
     }
     // Reports
     public static function getParentGuardianRecord($ssi_id)

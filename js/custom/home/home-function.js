@@ -426,8 +426,8 @@ class Promissory{
 					'<th>'+data['PromissoryNote'][i].pn_tracking_num+'</th>'+
 	                '<th>'+data['PromissoryNote'][i].pn_amount_promised+'</th>'+
 	                '<th>'+data['PromissoryNote'][i].pn_remarks+'</th>'+
-	                '<th>'+created_at.toDateString()+'</th>'+
-	                '<th>'+date_promised.toDateString()+'</th>'+
+	                '<th>'+created_at.getMonth()+"-"+created_at.getDate()+"-"+created_at.getFullYear()+'</th>'+
+	                '<th>'+date_promised.getMonth()+"-"+date_promised.getDate()+"-"+date_promised.getFullYear()+'</th>'+
 	                '<th>'+data['PromissoryNote'][i].rep_fullname+'</th>'+
 	                '<th>'+data['PromissoryNote'][i].rep_relation+'</th>'+
 	                '<th>'+semester+'</th>'+

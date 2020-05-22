@@ -52,29 +52,23 @@
                     </ul>
                 </div>
                 <div class="body">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="card">
-                                <div id="g_table" class="body table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Address</th>
-                                                <th>Relation</th>
-                                                <th>Email</th>
-                                                <th>Contact Number</th>
-                                                <th>Year</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="guardian_table"></tbody>
-                                    </table>
-                                    <center><span id="message" style="color: red; font-family: roboto;font-weight: bold;"></span></center>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="g_table" class="body table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Relation</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                    <th>Year</th>
+                                </tr>
+                            </thead>
+                            <tbody id="guardian_table"></tbody>
+                        </table>
+                        <center><span id="message" style="color: red; font-family: roboto;font-weight: bold;"></span></center>
                     </div>
                 </div>
             </div>
