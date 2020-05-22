@@ -129,7 +129,9 @@ class Query extends Controller
         try{
             $Amount =Assessment::join('sy','assessment.syId','=','sy.syId')
             ->select(DB::raw("SUM(assessment.amt2) as totalBill"))
-            ->where([['assessment.semId', '=', $sem],['sy.sy','=', $sy],['assessment.ssi_id', '=', $ssi_id]])
+            ->where([['assessment.semId', '=', $sem],
+                    ['sy.sy','=', strval($sy)],
+                    ['assessment.ssi_id', '=', $ssi_id]])
             ->get()[0]->totalBill;
             return response()->json(array('totalBill'=>$Amount));
         }catch(Exception $e){}
@@ -262,5 +264,41 @@ class Query extends Controller
             }
         }
         return $stats;
+    }
+    // Reports
+    public static function getParentGuardianRecord($ssi_id)
+    {
+        $Representative = Representative::join('promissory_note',
+        'pnms_system.promissory_note.pn_rep_id','=', 
+        'pnms_system.representative.rep_id')
+        ->select('representative.rep_fullname',
+        'representative.rep_address',
+        'representative.rep_relation',
+        'representative.rep_id_presented',
+        'representative.rep_email_address',
+        'representative.rep_contact_num',
+        'representative.created_at')
+        ->where([['pnms_system.promissory_note.pn_ssi_id','=',$ssi_id]])->get();
+        return array(
+        'Representative'=>$Representative
+        );
+    }
+
+    public static function getPromissoryRecord($ssi_id,$sy)
+    {
+        $PromissoryNote = PromissoryNote::select('promissory_note.pn_tracking_num',
+        'promissory_note.pn_ssi_id',
+        'promissory_note.pn_amount_promised',
+        'promissory_note.pn_date_promised',
+        'promissory_note.pn_remarks',
+        'promissory_note.pn_semester',
+        'promissory_note.pn_term',
+        'promissory_note.pn_school_yr',
+        'promissory_note.created_at')
+        ->where([['promissory_note.pn_ssi_id','LIKE','%'.$ssi_id.'%'],
+                 ['promissory_note.pn_school_yr','LIKE','%'.$sy.'%']])->get();
+        return array(
+        'PromissoryNote'=>$PromissoryNote
+        );
     }
 }

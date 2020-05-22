@@ -9,11 +9,16 @@ class SearchController extends Controller
 {
      public function searchStudent(Request $request)
     {
-        return response()->json((new Query)->getStudent(
-            $request->ssi_id,
-            $request->stud_year,
-            $request->stud_semester,
-            $request->stud_term
-        ));
+        return response()->json((new Query)->getStudent($request->ssi_id));
+    }
+    
+    public function parentGuardianRecord(Request $request)
+    {
+        return response()->json((new Query)->getParentGuardianRecord($request->ssi_id));
+    }
+
+    public function promissoryRecord(Request $request)
+    {
+        return response()->json((new Query)->getPromissoryRecord($request->ssi_id,$request->sy));
     }
 }

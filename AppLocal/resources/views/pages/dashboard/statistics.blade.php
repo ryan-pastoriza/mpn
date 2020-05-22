@@ -16,7 +16,7 @@
             </div>
             <div class="body" style="padding: 0px; margin: 0px;">
                 <div class="row clearfix">
-                    <!-- Bar Chart -->
+                    {{-- Bar Chart --}}
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card">
                             <div class="header">
@@ -26,20 +26,18 @@
                                             <i class="material-icons">more_vert</i>
                                         </a>
                                         <ul class="dropdown-menu pull-right">
-                                            <li><a href="javascript:void(0);">Action</a></li>
-                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                            <li><a href="javascript:void(0);">Something else here</a></li>
+                                            <li><a onclick='printJ("#bar_chart")'>Print</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
                             <div class="body" style="overflow-x: scroll;">
-                                <!-- <div id="line_chart" class="graph" hidden=""></div> -->
-                                <div id="bar_chart" class="graph"></div>
+                                {{-- <div id="line_chart" class="graph" hidden=""></div> --}}
+                                <div class="printme" id="bar_chart" class="graph"></div>
                             </div>
                         </div>
                     </div>
-                    <!-- #END# Bar Chart -->
+                    {{-- #END# Bar Chart --}}
                 </div>
             </div>
         </div>

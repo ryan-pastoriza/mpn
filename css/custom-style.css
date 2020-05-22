@@ -11,3 +11,15 @@
     padding:16px 16px;
     color:#FFF;
     border-bottom:2px dashed #607D8B;} 
+/*Printing Page*/
+/*.printme {
+        display: block;
+    }
+@media print {
+    .no-printme  {
+        display: none;
+    }
+    .printme  {
+        display: block;
+    }
+}*/

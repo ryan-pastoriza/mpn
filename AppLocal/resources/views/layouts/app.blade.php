@@ -44,7 +44,7 @@
     </div>
     {{-- #END# Page Loader --}}
     {{-- Promissory Note Modals --}}
-    <!-- @include('pages.promissory.promissory-application') -->
+    {{-- @include('pages.promissory.promissory-application') --}}
     @include('pages.promissory.camera')
     {{-- #END# Promissory Note Modals --}}
     {{-- Overlay For Sidebars --}}
@@ -66,7 +66,116 @@
                     
                     {{-- #END# Call Search --}}
                     {{-- Navbar right content --}}
-                    @yield('schoolyear')
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="material-icons">notifications</i>
+                            <span class="label-count">7</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">NOTIFICATIONS</li>
+                            <li class="body">
+                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 254px;"><ul class="menu" style="overflow: hidden; width: auto; height: 254px;">
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">person_add</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>12 new members joined</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 14 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-cyan">
+                                                <i class="material-icons">add_shopping_cart</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>4 sales made</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 22 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-red">
+                                                <i class="material-icons">delete_forever</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy Doe</b> deleted account</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-orange">
+                                                <i class="material-icons">mode_edit</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy</b> changed name</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 2 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-blue-grey">
+                                                <i class="material-icons">comment</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> commented your post</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 4 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">cached</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> updated status</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-purple">
+                                                <i class="material-icons">settings</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>Settings updated</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> Yesterday
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul><div class="slimScrollBar" style="background: rgba(0, 0, 0, 0.5); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 0px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+                            </li>
+                            <li class="footer">
+                                <a href="{{URL('notification')}}" class=" waves-effect waves-block">View All Notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
+                    {{-- @yield('schoolyear') --}}
+                    {{-- #END# Navbar right content --}}
                 </ul>
             </div>
         </div>
@@ -123,20 +232,8 @@
                             <span>Promissory</span>
                         </a>
                     </li>
-                    {{-- <li type="button" data-toggle="modal" data-target="#pn_form_modal" disable>
-                        <a id="create_pn">
-                            <i class="material-icons">note</i>
-                            <span>Promissory Note</span>
-                        </a>
-                    </li> --}}
                     <li>
-                        <a href="{{URL('settings')}}" onclick="return false;">
-                            <i class="material-icons">settings</i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{URL('inbox')}}" onclick="return false;">
+                        <a href="{{URL('inbox')}}">
                             <i class="material-icons">email</i>
                             <span>Inbox</span>
                             <p style="
@@ -147,26 +244,26 @@
                                 font-weight: bold;">522</p>
                         </a>
                     </li>
-                    {{-- <li>
-                        <a href="{{URL('statistics')}}">
-                            <i class="material-icons">pie_chart</i>
-                            <span>Statistics</span>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block toggled">
+                            <i class="material-icons">assignment</i>
+                            <span>Reports</span>
                         </a>
-                    </li> --}}
-                    {{-- <li>
-                        <a href="{{URL('notification')}}">
-                            <i class="material-icons">notifications</i>
-                            <span>Notification</span>
-                        </a>
-                    </li> --}}
-                    {{-- <div id="create_pn_docker">
-                        <li type="button" data-toggle="modal" data-target="#pn_form_modal" disable>
-                            <a id="create_pn">
-                                <i class="material-icons">create</i>
-                                <span>Promissory Note</span>
-                            </a>
-                        </li>
-                    </div> --}}
+                        <ul class="ml-menu" style="display: block;">
+                            <li>
+                                <a href="{{URL('parent_guardian_report')}}" class=" waves-effect waves-block" title="History of parent/guardian who made promissory">
+                                <i class="material-icons">people</i>
+                                <span>Parent/Guardian</span>        
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{URL('promissory_report')}}" class=" waves-effect waves-block" title="Reports of students who made promissory notes">
+                                <i class="material-icons">rate_review</i>
+                                <span>Promissory</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             {{-- #Menu --}}
@@ -177,6 +274,98 @@
                 </div>
             </div>
             {{-- #Footer --}}
+        </aside>
+        {{-- #END# Left Sidebar --}}
+        {{-- Left Sidebar --}}
+        <aside id="rightsidebar" class="right-sidebar">
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active in active" id="settings">
+                    <div class="slimScrollDiv">
+                        <div class="demo-settings">
+                            <p title="Select months for active system status">Security Settings</p>
+                            <ul class="setting-list">
+                                <li>
+                                    <span>January</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>February</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>March</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>April</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>May</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>June</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>July</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>August</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>September</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>October</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>November</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>December</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="slimScrollBar"></div>
+                        <div class="slimScrollRail"></div>
+                    </div>
+                </div>
+            </div>
         </aside>
         {{-- #END# Left Sidebar --}}
     </section>

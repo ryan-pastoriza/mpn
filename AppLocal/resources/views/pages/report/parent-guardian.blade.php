@@ -20,10 +20,67 @@
 
 @section('theme'){{ config('app.theme', 'theme-blue-grey') }}@endsection
 
-@section('form-name'){{'DASHBOARD'}}@endsection
+@section('form-name'){{'PARENT/GUARDIAN-REPORT'}}@endsection
 
 @section('content')
-    @include('pages.dashboard.statistics')
+    {{-- Parent and guardian--}}
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2 style="color: #337ab7;">
+                        {{-- <a target="_blank" href="{{URL('parent_guardian_report_printable')}}" class="btn waves-effect">
+                            <i class="material-icons">print</i>
+                            <span>Print</span>
+                        </a> --}}
+                        <button class="btn btn-primary waves-effect" onclick="printJ('#g_table')">
+                            <i class="material-icons">print</i>
+                            <span>Print</span>
+                        </button>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="javascript:void(0);" id="reload-content-records" data-toggle="cardloading" data-loading-effect="pulse" data-loading-color="lightBlue" hidden="">
+                                <i class="material-icons">loop</i>
+                            </a>
+                        </li>
+                        <li>
+                            <input list="name" type="text" class="form-control" name="student_name" id="student_name" placeholder="Search...">
+                            <datalist id="name">
+                            </datalist>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div id="g_table" class="body table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Relation</th>
+                                                <th>Email</th>
+                                                <th>Contact Number</th>
+                                                <th>Year</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="guardian_table"></tbody>
+                                    </table>
+                                    <center><span id="message" style="color: red; font-family: roboto;font-weight: bold;"></span></center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     {{-- #END# Parent and guardian --}}
 @endsection
 
 @section('scripts')
@@ -56,14 +113,11 @@
     {{-- <script src="{{asset('plugins/jquery-datatable/extensions/export/buttons.print.min.js')}}"></script> --}}
 	{{-- Sparkline Chart Plugin Js --}}
 	<script src="{{asset('plugins/jquery-sparkline/jquery.sparkline.js')}}"></script>
-    <!-- Morris Plugin Js -->
-    <script src="{{asset('plugins/raphael/raphael.min.js')}}"></script>
-    <script src="{{asset('plugins/morrisjs/morris.js')}}"></script>
 	{{-- Custom Js --}}
 	<script src="{{asset('js/admin.js')}}"></script>
-    <script src="{{asset('js/pages/charts/morris.js')}}"></script>
     <script src="{{asset('js/pages/cards/colored.js')}}"></script>
     <script src="{{asset('js/pages/tables/jquery-datatable.js')}}"></script>
+    <script src="{{asset('js/custom/report/parent-report-function.js')}}"></script>
     <script src="{{asset('js/custom/printmanager/printmgr.js')}}"></script>
     {{-- Demo Js --}}
 	<script src="{{asset('js/demo.js')}}"></script>

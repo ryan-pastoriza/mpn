@@ -212,7 +212,7 @@ class Search{
 			var Midterm_percent =0.65; //(fee_schedule.percent)
 			var Pre_final_percent =0.85; //(fee_schedule.percent)
 			var Final_percent =1; //(fee_schedule.percent)
-
+			
 			var Prelim_breakdown = Prelim_percent * total_bill;
 			total_bill = total_bill - Prelim_breakdown;
 			var Midterm_breakdown = Midterm_percent * total_bill;
@@ -424,16 +424,16 @@ class Promissory{
 					let date_promised =new Date(data['PromissoryNote'][i].pn_date_promised);
 					$html +='</tr>'+
 					'<th>'+data['PromissoryNote'][i].pn_tracking_num+'</th>'+
-	                '<th>'+semester+'</th>'+
-	                '<th>'+term+'</th>'+
-	                '<th>'+data['PromissoryNote'][i].pn_school_yr+'</th>'+
 	                '<th>'+data['PromissoryNote'][i].pn_amount_promised+'</th>'+
 	                '<th>'+data['PromissoryNote'][i].pn_remarks+'</th>'+
 	                '<th>'+created_at.toDateString()+'</th>'+
 	                '<th>'+date_promised.toDateString()+'</th>'+
 	                '<th>'+data['PromissoryNote'][i].rep_fullname+'</th>'+
 	                '<th>'+data['PromissoryNote'][i].rep_relation+'</th>'+
-	                '<th><img src="'+data['PromissoryNote'][i].rep_id_presented+'" width="90" height="50"></th>'+
+	                '<th>'+semester+'</th>'+
+	                '<th>'+term+'</th>'+
+	                '<th>'+data['PromissoryNote'][i].pn_school_yr+'</th>'+
+	                // '<th><img src="'+data['PromissoryNote'][i].rep_id_presented+'" width="90" height="50"></th>'+
 	                // '<th><div class="btn-toolbar"><button type="button" class="btn btn-warning waves-effect">Update</button>'+
 	                // '<button type="button" class="btn btn-danger waves-effect">Delete</button></div></th>'+
                 	'</tr>';
@@ -490,7 +490,7 @@ $(document).ready(function() {
 	var stud_year=   $('#schoolyear option[value="'+$('#sub_g_sy').val()+'"]').data('id');
 	var stud_semester=  $('#semester option[value="'+$('#sub_g_semester').val()+'"]').data('id');
 	var stud_term=  $('#term option[value="'+$('#sub_g_term').val()+'"]').data('id');
-	var ssi_id=  $('#names option[value="'+$('#student_name').val()+'"]').data('id');
+	var ssi_id=  $('#name option[value="'+$('#student_name').val()+'"]').data('id');
 	
 	$(document).on('change', 'input[name=sub_g_sy]', function(){stud_year=  $('#schoolyear option[value="'+$('#sub_g_sy').val()+'"]').data('id'); console.log(stud_year);});
 	$(document).on('change', 'input[name=sub_g_semester]', function(){stud_semester=  $('#semester option[value="'+$('#sub_g_semester').val()+'"]').data('id'); console.log(stud_semester);});

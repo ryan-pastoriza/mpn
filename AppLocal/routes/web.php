@@ -37,9 +37,18 @@ Route::get('/inbox', 'RouteController@inbox')->name('inbox');
 Route::get('/settings', 'RouteController@settings')->name('settings');
 Route::get('/statistics', 'RouteController@statistics')->name('statistics');
 Route::get('/notification', 'RouteController@notification')->name('notification');
+// Reports
+Route::get('/parent_guardian_report', 'RouteController@parent_guardian_report')->name('parent_guardian_report');
+Route::get('/promissory_report', 'RouteController@promissory_report')->name('promissory_report');
+Route::get('/stat_report', 'RouteController@stat_report')->name('stat_report');
+// Printable Reports
+Route::get('/parent_guardian_report_printable', 'RouteController@parent_guardian_report_printable')->name('parent_guardian_report_printable');
+Route::get('/promissory_report_printable', 'RouteController@promissory_report_printable')->name('promissory_report_printable');
 // Student Transactions
 Route::get('load/student','StudentInfoController@loadInfo');
-Route::get('search/student','SearchController@searchStudent');	
+Route::get('search/student','SearchController@searchStudent');
+Route::get('search/parent_guardian','SearchController@parentGuardianRecord');
+Route::get('search/promissory_record','SearchController@promissoryRecord');
 // Getting all studennt info
 Route::get('get/promissoryCount','StudentController@PromissoryCount');
 Route::get('get/totalbill','StudentController@student_total_bill');

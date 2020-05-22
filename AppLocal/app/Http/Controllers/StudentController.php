@@ -15,7 +15,7 @@ class StudentController extends Controller
         try{return response()->json((new Query)->loadStudents());}
         catch (Exception $exception) {}
     }
-
+    
     public function PromissoryCount(Request $request)
     {
         try{return response()->json((new Query)->getPromissoryCount());}
@@ -26,8 +26,7 @@ class StudentController extends Controller
     {
         // 1573 Jahdiel Casilao Bulahan
         // return $ssi_id;
-        try{return (new Query)->getTotalBill($request->ssi_id,
-        $request->stud_year,$request->stud_semester);}
+        try{return (new Query)->getTotalBill($request->ssi_id,$request->stud_year,$request->stud_semester);}
         catch (Exception $exception) {}
     }
     

@@ -19,32 +19,6 @@
 @section('theme'){{ config('app.theme', 'theme-blue-grey') }}@endsection
 @section('form-name'){{'PROMISSORY'}}@endsection
 
-@section('schoolyear')
-    <li class="">
-        <br>
-        <h5 style="color:white;">School Year&nbsp;</h5>
-    </li>
-    <li class="">
-        <br>
-        <?php
-            $startingYear = date('Y');
-            $endingYear = date('Y')+1;
-            echo '<input list="schoolyear" type="text" class="form-control" name="sub_g_sy" id="sub_g_sy" placeholder="School Year">';
-        ?>
-        <datalist id="schoolyear">
-            <?php
-                $endingYear = date('Y');
-                $startingYear = 2000;
-                $sc = '';
-                for ($endingYear;$endingYear >=$startingYear; $endingYear--) {
-                    $sc = strval($endingYear."-".($endingYear+1));
-                    echo '<option data-id="'.$sc.'" value="'.$sc.'" class="form-control"></option>';
-                }
-            ?>
-        </datalist>
-    </li>
-@endsection
-
 @section('content')
     {{-- Student Search --}}
     <div class="row clearfix">
@@ -58,9 +32,23 @@
                 <div class="body">
                     <form class="custom-search">
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-lg-4 col-md-4 col-sm-4">
                                 <input list="name" type="text" class="form-control" name="student_name" id="student_name" placeholder="Search...">
                                 <datalist id="name">
+                                </datalist>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2">
+                                <input list="schoolyear" type="text" class="form-control" name="sub_g_sy" id="sub_g_sy" placeholder="Select....">
+                                <datalist id="schoolyear">
+                                    <?php
+                                        $endingYear = date('Y');
+                                        $startingYear = 2000;
+                                        $sc = '';
+                                        for ($endingYear;$endingYear >=$startingYear; $endingYear--) {
+                                            $sc = strval($endingYear."-".($endingYear+1));
+                                            echo '<option data-id="'.$sc.'" value="'.$sc.'" class="form-control"></option>';
+                                        }
+                                    ?>
                                 </datalist>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2">
@@ -365,7 +353,7 @@
                                                             </div>                                                
                                                             <div class="col-lg-6 col-md-6 col-sm-6">
                                                                 <div class="form-line focused">
-                                                                    <input type="date" id="sub_g_date_promised" class="form-control">
+                                                                    <input type="date" id="sub_g_date_promised" class="bootstrapMaterialDatePicker form-control">
                                                                     <label class="form-label Floating">*Cut off date</label>
                                                                 </div>
                                                             </div>
@@ -402,76 +390,70 @@
                         </div>
                         {{-- #END# Application Form | With Floating Label --}}
 
-                        </div>
                     </div>
-                    {{-- #END# Student Information | With Floating Label --}}
-                    <div class="card">
-                        <div class="row">
-                            {{-- Promissory Record --}}
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="card">
-                                    <div class="header">
-                                        <h2 style="color: #337ab7;">
-                                            Promissory List
-                                        </h2>
-                                        <ul class="header-dropdown m-r--5">
-                                            <li class="dropdown">
-                                                <!-- <a href="#" data-toggle="modal" data-target="#pn_form_modal" role="button" tooltip="Add New Promissory Note">
-                                                    <button type="button" class="btn bg-blue waves-effect" title="Add Promissory Note">
-                                                        <i class="material-icons">create</i>
-                                                        <span>Add</span>
-                                                    </button>
-                                                </a> -->
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-                                        <div class="table-responsive">
-                                            {{-- Uncomment for exportable data --}}
-                                            {{-- <table id="promissory_table" class="table table-bordered table-striped table-hover dataTable js-exportable" width="100%"> --}}
-                                            <table id="promissory_table" class="table table-bordered table-striped table-hover" width="100%">
-                                                <thead>
-                                                    <tr style="color: #607D8B !important;">
-                                                        <th>Tracking Number</th>
-                                                        <th>Semester</th>
-                                                        <th>Term</th>
-                                                        <th>Shool Year</th>
-                                                        <th>Amount Promised</th>
-                                                        <th>Remarks</th>
-                                                        <th>Date Filed</th>
-                                                        <th>Promised Date</th>
-                                                        <th>Representative</th>
-                                                        <th>Relation</th>
-                                                        <th>ID</th>
-                                                        {{-- <th>Action</th> --}}
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="promissory_list">
-                                                    
-                                                </tbody>
-                                                <tfoot style="color: #607D8B !important;">
-                                                    <tr>
-                                                        <th>Tracking Number</th>
-                                                        <th>Semester</th>
-                                                        <th>Term</th>
-                                                        <th>Shool Year</th>
-                                                        <th>Amount Promised</th>
-                                                        <th>Remarks</th>
-                                                        <th>Date Filed</th>
-                                                        <th>Promised Date</th>
-                                                        <th>Representative</th>
-                                                        <th>Relation</th>
-                                                        <th>ID</th>
-                                                        {{-- <th>Action</th> --}}
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
+                </div>
+                {{-- #END# Student Information | With Floating Label --}}
+                <div class="card">
+                    <div class="row">
+                        {{-- Promissory Record --}}
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2 style="color: #337ab7;">
+                                        Promissory List
+                                    </h2>
+                                    <ul class="header-dropdown m-r--5">
+                                        <li class="dropdown">
+                                            <!-- <a href="#" data-toggle="modal" data-target="#pn_form_modal" role="button" tooltip="Add New Promissory Note">
+                                                <button type="button" class="btn bg-blue waves-effect" title="Add Promissory Note">
+                                                    <i class="material-icons">create</i>
+                                                    <span>Add</span>
+                                                </button>
+                                            </a> -->
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        {{-- Uncomment for exportable data --}}
+                                        {{-- <table id="promissory_table" class="table table-bordered table-striped table-hover dataTable js-exportable" width="100%"> --}}
+                                        <table id="promissory_table" class="table table-bordered table-striped table-hover" width="100%">
+                                            <thead>
+                                                <tr style="color: #607D8B !important;">
+                                                    <th>T-Number</th>
+                                                    <th>Amount</th>
+                                                    <th>Remarks</th>
+                                                    <th>Date Filed</th>
+                                                    <th>Accomplishment Date</th>
+                                                    <th>Representative</th>
+                                                    <th>Relation</th>
+                                                    <th>Semester</th>
+                                                    <th>Term</th>
+                                                    <th>Shool Year</th>
+                                                    {{-- <th>Action</th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody id="promissory_list"></tbody>
+                                            {{-- <tfoot style="color: #607D8B !important;">
+                                                <tr>
+                                                    <th>T-Number</th>
+                                                    <th>Amount</th>
+                                                    <th>Remarks</th>
+                                                    <th>Date Filed</th>
+                                                    <th>Accomplishment Date</th>
+                                                    <th>Representative</th>
+                                                    <th>Relation</th>
+                                                    <th>Semester</th>
+                                                    <th>Term</th>
+                                                    <th>Shool Year</th>
+                                                </tr>
+                                            </tfoot> --}}
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            {{-- #END# Promissory Record --}}
                         </div>
+                        {{-- #END# Promissory Record --}}
                     </div>
                 </div>
             </div>
@@ -488,6 +470,8 @@
     <script src="{{asset('plugins/bootstrap/js/bootstrap.js')}}"></script>
     {{-- Select Plugin Js --}}
     <script src="{{asset('plugins/bootstrap-select/js/bootstrap-select.js')}}"></script>
+    {{-- Bootstrap Material datetime picker --}}
+    {{-- <script src="{{asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script> --}}
     {{-- Slimscroll Plugin Js --}}
     <script src="{{asset('plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
     {{-- Waves Effect Plugin Js --}}
@@ -497,7 +481,7 @@
     {{-- Sweet Alert Plugin Js --}}
     <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
     {{-- Jquery CountTo Plugin Js --}}
-    <script src="{{asset('plugins/jquery-countto/jquery.countTo.js')}}"></script>
+    <script src="{{asset('plugins/jquery-countto/jquery.countTo.js')}}"></script>    
     {{-- Jquery DataTable Plugin Js --}}
     <script src="{{asset('plugins/jquery-datatable/jquery.dataTables.js')}}"></script>
     <script src="{{asset('plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js')}}"></script>
@@ -519,5 +503,5 @@
     <script src="{{asset('js/custom/home/home-function.js')}}"></script>
     <script src="{{asset('js/pages/cards/colored.js')}}"></script>
     {{-- Demo Js --}}
-    <script src="{{asset('js/demo.js')}}"></script>
+    <script src="{{asset('js/demo.js')}}"></script> s
 @endsection

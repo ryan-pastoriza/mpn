@@ -30,11 +30,28 @@ class RouteController extends Controller
         return view('pages.promissory.promissory');
     }
     
+    public function settings(){
+        return view('pages.settings.settings');
+    }
+
     public function inbox(){
         return view('pages.inbox.inbox');
     }
     
-    public function settings(){
-        return view('pages.settings.settings');
+    public function notification(){
+        return view('pages.notification.notification');
     }
+    // Reports
+    public function parent_guardian_report(){
+        return view('pages.report.parent-guardian');
+    }
+    
+    public function promissory_report(){
+        return view('pages.report.promissory');
+    }
+
+    public function stat_report(){
+        return view('pages.statistics.Stat');
+    }
+
 }

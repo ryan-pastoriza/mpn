@@ -31,18 +31,27 @@
 	            	<div class="row">
 	            		<div class="col-md-12">
 	            			<p style="color: red;">
-		            			* Activate System Operation From Starting Date and Session Expiration Date.
+		            			* Activate System Operation During this months.
 		            		</p>
 	            		</div>
 	            	</div>
 	            	<div class="row">
 	                	<div class="col-md-6">
-		                	<label>From</label>
-		                	<input type="date" name="" title="System Active Status" class="form-control">
-	                	</div>
-	                	<div class="col-md-6">
-		                	<label>To</label>
-		                	<input type="date" name="" title="System Active Status" class="form-control">
+		                	<label>Month</label>
+		                	<select class="form-control">
+		                		<option>January</option>
+		                		<option>February</option>
+		                		<option>March</option>
+		                		<option>April</option>
+		                		<option>May</option>
+		                		<option>June</option>
+		                		<option>July</option>
+		                		<option>August</option>
+		                		<option>September</option>
+		                		<option>October</option>
+		                		<option>November</option>
+		                		<option>December</option>
+		                	</select>
 	                	</div>
 	                </div>
 	            </div>
@@ -58,7 +67,7 @@
 	{{-- Bootstrap Core Js --}}
 	<script src="{{asset('plugins/bootstrap/js/bootstrap.js')}}"></script>
 	{{-- Select Plugin Js --}}
-	<script src="{{asset('plugins/bootstrap-select/js/bootstrap-select.js')}}"></script>
+	<!-- <script src="{{asset('plugins/bootstrap-select/js/bootstrap-select.js')}}"></script> -->
 	{{-- Slimscroll Plugin Js --}}
 	<script src="{{asset('plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
 	{{-- Waves Effect Plugin Js --}}
