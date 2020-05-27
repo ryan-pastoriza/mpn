@@ -242,8 +242,6 @@ class Query extends Controller
                      # code...
                     }
                     if ($PNStatistics[$j]['pn_semester'] == $PNStatistics[$i]['pn_semester']) {
-                         
-                    
                         // if ($PNStatistics[$n]['pn_school_yr']) {
                         //     # code...
                         // }

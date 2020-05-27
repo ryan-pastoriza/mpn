@@ -22,47 +22,59 @@
 @section('content')
 <div class="card">
 	<div class="row clearfix">
-	    <div class="col-lg-6 col-md-6 col-sm-6 ">
-	        <div class="new_message">
-	            <div class="header">
-	                <h2 style="color: #00bcd4;">
-	                    New Message
-	                </h2>
-	            </div>
-	            <div class="body">
-	            	<div class="row">
-	            		<div class="col-md-12">
-	            			<label for="email_account">To:</label>
-	            			<input name="email_account" class="form-control" placeholder="EmailAccount@gmail.com"></input>
-	            		</div>
-	            	</div>
-	            	<div class="row">
-	            		<div class="col-md-12">
-	            			<textarea name="message" class="form-control"></textarea>
-	            		</div>		
-	            	</div>
-	            	<div class="row">
-	            		<div class="col-md-5">
-            				<button class="btn btn-info btn-md">	
-            					<span class="glyphicon glyphicon-send"></span>  Send
-            				</button>
-	            		</div>
-	            	</div>
+		<form>
+		    <div class="col-lg-6 col-md-6 col-sm-6 ">
+		        <div class="new_message">
+		            <div class="header">
+		                <h2 style="color: #00bcd4;">
+		                    New Message
+		                </h2>
+		                @if(count($errors) >0)
+	        				<div class="alert alert-danger">
+	        					<button type="button" class="close" data-dismiss="alert">x</button>
+	        					<ul>
+	        						@foreach($errors->all() as $error)
+	        							<li>{{$error}}</li>
+	        						@endforeach
+	        					</ul>
+	        				</div>
+	        			@endif
+		            </div>
+		            <div class="body">
+		            	<div class="row">
+		            		<div class="col-md-12">
+		            			<label for="email">To:</label>
+		            			<input type="email" id="email" name="email" class="form-control" placeholder="EmailAccount@gmail.com"></input>
+		            		</div>
+		            	</div>
+		            	<div class="row">
+		            		<div class="col-md-12">
+		            			<textarea id="message" name="message" class="form-control"></textarea>
+		            		</div>
+		            	</div>
+		            	<div class="row">
+		            		<div class="col-md-5">
+	            				<button id="btn_send_message" class="btn btn-info btn-md waves-effect">	
+	            					<span class="glyphicon glyphicon-send"></span>Send
+	            				</button>
+		            		</div>
+		            	</div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-lg-6 col-md-6 col-sm-6 ">
+	            <div class="messages">
+	                <div class="header">
+	                    <h2 style="color: #00bcd4;">Sent Messages</h2>
+	                </div>
+	                <div class="body">
+	                     <div class="inbox">
+	                     	{{-- Mail --}}
+	                     </div>
+	                </div>
 	            </div>
 	        </div>
-	    </div>
-	    <div class="col-lg-6 col-md-6 col-sm-6 ">
-            <div class="messages">
-                <div class="header">
-                    <h2 style="color: #00bcd4;">Messages</h2>
-                </div>
-                <div class="body">
-                     <div class="inbox">
-                     	{{-- Mail --}}
-                     </div>
-                </div>
-            </div>
-        </div>
+        </form>
 	</div>
 </div>
 @endsection
@@ -101,6 +113,7 @@
     {{-- <script src="{{asset('js/cdn/jquery/jquery.number.min.js')}}"></script> --}}
     <script src="{{asset('js/pages/cards/colored.js')}}"></script>
     {{-- <script src="{{asset('js/pages/tables/jquery-datatable.js')}}"></script> --}}
+    <script src="{{asset('/js/custom/mail/message.js')}}"></script>
 	{{-- Demo Js --}}
 	<script src="{{asset('js/demo.js')}}"></script>
 @endsection

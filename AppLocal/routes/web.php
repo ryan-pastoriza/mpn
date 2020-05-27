@@ -64,3 +64,5 @@ Route::get('get/promissory','StudentController@get_student_promissory_note');
 Route::get('get/FeeSchedule','StudentController@student_fee_schedule');
 Route::get('get/AllFeeSchedule','StudentController@fee_schedules');
 Route::get('get/pnstat','StatisticsController@load_statistics_data');
+// MESSAGE
+Route::post('/post/message','SendEmailController@send');
