@@ -30,6 +30,6 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->from('aclcbutuan.mpnservice@gmail.com')->subject('MPN Test email')->view('pages.email.dynamic_email_template')->with('data',$this->data);
+        return $this->from('aclcbutuan.mpnservice@gmail.com')->subject('ACLC PROMISSORY NOTE')->view('pages.email.dynamic_email_template')->with('data',$this->data);
     }
 }

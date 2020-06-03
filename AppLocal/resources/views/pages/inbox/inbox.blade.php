@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('links')
@@ -29,7 +30,7 @@
 		                <h2 style="color: #00bcd4;">
 		                    New Message
 		                </h2>
-		                @if(count($errors) >0)
+		                {{-- @if(count($errors) >0)
 	        				<div class="alert alert-danger">
 	        					<button type="button" class="close" data-dismiss="alert">x</button>
 	        					<ul>
@@ -38,7 +39,7 @@
 	        						@endforeach
 	        					</ul>
 	        				</div>
-	        			@endif
+	        			@endif --}}
 		            </div>
 		            <div class="body">
 		            	<div class="row">

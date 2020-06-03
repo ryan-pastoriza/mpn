@@ -58,8 +58,8 @@ return [
         
         'acs' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST1', 'localhost'),
-            'port' => env('DB_PORT1', '3306'),
+            'host' => env('DB_HOST1', 'forge'),
+            'port' => env('DB_PORT1', 'forge'),
             'database' => env('DB_DATABASE1', 'forge'),
             'username' => env('DB_USERNAME1', 'forge'),
             'password' => env('DB_PASSWORD1', 'forge'),
@@ -74,8 +74,8 @@ return [
         
         'sis_main_database' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST2', 'localhost'),
-            'port' => env('DB_PORT2', '3306'),
+            'host' => env('DB_HOST2', 'forge'),
+            'port' => env('DB_PORT2', 'forge'),
             'database' => env('DB_DATABASE2', 'forge'),
             'username' => env('DB_USERNAME2', 'forge'),
             'password' => env('DB_PASSWORD2', 'forge'),

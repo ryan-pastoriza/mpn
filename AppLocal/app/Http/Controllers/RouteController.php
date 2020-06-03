@@ -54,4 +54,7 @@ class RouteController extends Controller
         return view('pages.statistics.Stat');
     }
 
+    public function view_emailtemplate(){
+        return view('pages.email.dynamic_email_template');
+    }
 }

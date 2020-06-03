@@ -6,23 +6,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
 
-class SendEmail extends Controller
+class SendEmailController extends Controller
 {
     function send(Request $request)
     {
-    	$data = array(
-    		'email' => $request->email,
-    		'message' => $request->message
-    	);
-        $response = null;
-        $message = ""
-        system("ping -c 1 google.com", $response);
-        if($response == 0)
-        {
-            // Mail::to($request->email)->send(new SendMail($data));
-            $message = "You are connected to the Internet";
-        }else{
-            $message = "You are NOT connected to the Internet";
+    	// $this->validate($request,[
+    	// 	'email'		=>	'required|email',
+    	// 	'message'	=>	'required'
+    	// ]);
+        try{
+            $data = array(
+                'message' => $request->message,
+            );
+            Mail::to($request->email)->send(new SendMail($data));
+            return "Success";
+        }catch(Exception $e){
+            return response()->view('errors.custom', [], 500);
         }
-    	return $message;
     }
+}

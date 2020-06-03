@@ -1,7 +1,7 @@
 Assessment
 
 1: Get the total bill
-2: Selectio Format
+2: Selection Format
 	
 	SY       -> Format(String)
 				->"2018-2019"

@@ -224,45 +224,77 @@ class Query extends Controller
         ->orderBy('promissory_note.pn_school_yr','asc')
         ->get();
 
-
-
+        $sy = PromissoryNote::select('promissory_note.pn_school_yr')
+        ->distinct()
+        ->orderBy('promissory_note.pn_school_yr','asc')
+        ->get();
         $stats = array();
-        // $stats = 0;
-        // for ($i=0; $i < count($PNStatistics); $i++) {
-        //     array_push($stats, array(
-        //         'school_year' =>$PNStatistics[$i]['pn_school_yr'],
-        //         'semester' =>$PNStatistics[$i]['pn_semester'],
-        //         'term' =>$PNStatistics[$i]['pn_term']));
-        // }
-
-        for ($i=0; $i < count($PNStatistics); $i++) {
-            for ($j=0; $j < count($PNStatistics); $j++) { // loop check for same school year
-                if ($PNStatistics[$j]['pn_school_yr'] == $PNStatistics[$i]['pn_school_yr']) {
-                    for ($k=0; $k < count($PNStatistics); $k++) {
-                     # code...
+        $prelim =$midterm= $prefinal =$final = 0;
+        $sem='';
+        for ($i=0; $i < count($sy); $i++) {//All school year with PN
+            for ($x=1; $x < 2; $x++) { //1st Sem and 2nd Sem
+                // First Semester
+                $sem =" 1st semester";
+                for ($j=0; $j < count($PNStatistics); $j++) { //All PN
+                    if ($sy[$i]['pn_school_yr']==$PNStatistics[$j]['pn_school_yr']) {
+                        if ($PNStatistics[$j]['pn_semester']=='1') {
+                            if ($PNStatistics[$j]['pn_term']==1) {
+                                $prelim +=1;
+                            }else
+                            if ($PNStatistics[$j]['pn_term']==2) {
+                                $midterm +=1;
+                            }else
+                            if ($PNStatistics[$j]['pn_term']==3) {
+                                $prefinal +=1;
+                            }else
+                            if ($PNStatistics[$j]['pn_term']==4) {
+                                $final +=1;
+                            }
+                        }
                     }
-                    if ($PNStatistics[$j]['pn_semester'] == $PNStatistics[$i]['pn_semester']) {
-                        // if ($PNStatistics[$n]['pn_school_yr']) {
-                        //     # code...
-                        // }
-
-                        //  array_push($stats, array(
-                        // 'school_year' =>$PNStatistics[$i]['pn_school_yr'],
-                        // 'semester' =>$PNStatistics[$i]['pn_semester'],
-                        // 'term' =>$PNStatistics[$i]['pn_term']));
-                    }
-
-
-
-                    // array_push($stats, array(
-                    //     'school_year' =>$PNStatistics[$i]['pn_school_yr'],
-                    //     'semester' =>$PNStatistics[$i]['pn_semester'],
-                    //     'term' =>$PNStatistics[$i]['pn_term']));
                 }
+                array_push($stats, array(
+                    'x' => $sy[$i]['pn_school_yr'].$sem,
+                    'prelim' => $prelim,
+                    'midterm' => $midterm,
+                    'prefinal' => $prefinal,
+                    'final' => $final
+                ));
+                $prelim =$midterm= $prefinal =$final = 0;
+
+                // Second Semester
+                $sem =" 2nd semester";
+                for ($j=0; $j < count($PNStatistics); $j++) { //All PN
+                    if ($sy[$i]['pn_school_yr']==$PNStatistics[$j]['pn_school_yr']) {
+                        if ($PNStatistics[$j]['pn_semester']=='2') {
+                            if ($PNStatistics[$j]['pn_term']==1) {
+                                $prelim +=1;
+                            }else
+                            if ($PNStatistics[$j]['pn_term']==2) {
+                                $midterm +=1;
+                            }else
+                            if ($PNStatistics[$j]['pn_term']==3) {
+                                $prefinal +=1;
+                            }else
+                            if ($PNStatistics[$j]['pn_term']==4) {
+                                $final +=1;
+                            }
+                        }
+                    }
+                }
+                array_push($stats, array(
+                    'x' => $sy[$i]['pn_school_yr'].$sem,
+                    'prelim' => $prelim,
+                    'midterm' => $midterm,
+                    'prefinal' => $prefinal,
+                    'final' => $final
+                ));
+                $prelim =$midterm= $prefinal =$final = 0;
             }
         }
-        return $PNStatistics;
+        return $stats;
     }
+
     // Reports
     public static function getParentGuardianRecord($ssi_id)
     {

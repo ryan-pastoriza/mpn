@@ -66,3 +66,5 @@ Route::get('get/AllFeeSchedule','StudentController@fee_schedules');
 Route::get('get/pnstat','StatisticsController@load_statistics_data');
 // MESSAGE
 Route::post('/post/message','SendEmailController@send');
+// Email View
+Route::get('/view_emailtemplate','RouteController@view_emailtemplate');
