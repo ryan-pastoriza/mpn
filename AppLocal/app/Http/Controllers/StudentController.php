@@ -92,7 +92,7 @@ class StudentController extends Controller
         );
         if((new Query)->promissoryNoteValidation($to_eval)==0){
             return response()->json(['message' =>(new Query)->addPromissoryNote($data)]);}
-        else{return response()->json(['message' =>'Promissory Note Already Exist']);}
+        else{return response()->json(['exist' =>'Promissory Note Already Exist']);}
     }
     
     public function get_student_promissory_note(Request $request)

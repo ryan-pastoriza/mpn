@@ -28,49 +28,46 @@
 		        <div class="new_message">
 		            <div class="header">
 		                <h2 style="color: #00bcd4;">
-		                    New Message
+		                    Message
 		                </h2>
-		                {{-- @if(count($errors) >0)
-	        				<div class="alert alert-danger">
-	        					<button type="button" class="close" data-dismiss="alert">x</button>
-	        					<ul>
-	        						@foreach($errors->all() as $error)
-	        							<li>{{$error}}</li>
-	        						@endforeach
-	        					</ul>
-	        				</div>
-	        			@endif --}}
 		            </div>
 		            <div class="body">
-		            	<div class="row">
-		            		<div class="col-md-12">
-		            			<label for="email">To:</label>
-		            			<input type="email" id="email" name="email" class="form-control" placeholder="EmailAccount@gmail.com"></input>
-		            		</div>
-		            	</div>
-		            	<div class="row">
-		            		<div class="col-md-12">
-		            			<textarea id="message" name="message" class="form-control"></textarea>
-		            		</div>
-		            	</div>
-		            	<div class="row">
-		            		<div class="col-md-5">
-	            				<button id="btn_send_message" class="btn btn-info btn-md waves-effect">	
-	            					<span class="glyphicon glyphicon-send"></span>Send
-	            				</button>
-		            		</div>
-		            	</div>
+		            	<form>
+			            	<div class="row">
+			            		<div class="col-md-12">
+			            			<label for="email">To: <span id="actt_name"></span></label>
+			            			<img id="img_sending" src="images/loading.gif" width="20" height="20" hidden>
+		            				<small id="span_sending" hidden>Sending...</small>
+			            			<input type="email" id="email" name="email" class="form-control" placeholder="EmailAccount@gmail.com" required></input>
+			            		</div>
+			            	</div>
+			            	<div class="row">
+			            		<div class="col-md-12">
+			            			<textarea id="message" name="message" class="form-control" required></textarea>
+			            		</div>
+			            	</div>
+			            	<div class="row">
+			            		<div class="col-md-5">
+		            				<button id="btn_send_message" class="btn btn-info btn-md waves-effect">	
+		            					{{-- <span class="glyphicon glyphicon-send"></span> --}} <i class="tiny material-icons " >send</i> Send
+		            				</button>
+			            		</div>
+			            	</div>
+		            	</form>
 		            </div>
 		        </div>
 		    </div>
 		    <div class="col-lg-6 col-md-6 col-sm-6 ">
 	            <div class="messages">
 	                <div class="header">
-	                    <h2 style="color: #00bcd4;">Sent Messages</h2>
+	                    <h2 style="color: #00bcd4;">Recipients</h2>
 	                </div>
 	                <div class="body">
-	                     <div class="inbox">
+	                     <div style="position: inherit; height: 300px; overflow-y: scroll;">
 	                     	{{-- Mail --}}
+	                     	<ul class="to_mail_list">
+
+	                     	</ul>
 	                     </div>
 	                </div>
 	            </div>

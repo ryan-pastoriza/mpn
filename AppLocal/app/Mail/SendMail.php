@@ -22,7 +22,6 @@ class SendMail extends Mailable
     {
         $this->data = $data;
     }
-
     /**
      * Build the message.
      *

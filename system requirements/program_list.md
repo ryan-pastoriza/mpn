@@ -29,3 +29,11 @@ Assessment
 	Pre-Fi  -> amt
 	Final   -> amt
 	Total = 0.00
+
+
+
+
+	$em_his=EmailHistory::where('history_id','=',$history_id);
+            $em_his->message= $message;
+            $em_his->status= 'done';
+            $em_his->save();

@@ -4,24 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Api\Query;
 use App\Mail\SendMail;
 
 class SendEmailController extends Controller
 {
     function send(Request $request)
     {
-    	// $this->validate($request,[
-    	// 	'email'		=>	'required|email',
-    	// 	'message'	=>	'required'
-    	// ]);
+        $data = array('message' => $request->message,);
         try{
-            $data = array(
-                'message' => $request->message,
-            );
             Mail::to($request->email)->send(new SendMail($data));
-            return "Success";
-        }catch(Exception $e){
-            return response()->view('errors.custom', [], 500);
+            if (Mail::failures()){
+                return response()->json('error');
+            }else{
+                return (new Query)->add_email_history($request->history_id,$request->message);
+            }
+        }catch(GuzzleHttp\Exception\ServerException $error){
+            return response()->json('error');
         }
     }
 }

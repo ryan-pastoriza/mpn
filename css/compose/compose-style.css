@@ -15,6 +15,11 @@ textarea[name="message"]{
 	box-shadow: none;
 	resize: none;}
 
-textarea[name="message"]{	
+textarea[name="message"]{
 	min-height: 200px;
 	max-height: 100%;}
+
+.e_accounts,.e_accounts:hover,.e_accounts:focus {
+	/*pointer-events: none;*/
+    text-decoration: none;
+}

@@ -12,6 +12,9 @@ use App\Models\Representative;
 use App\Models\StudPerInfo;
 use App\Models\Users;
 use App\Models\Email;
+use App\Models\EmailHistory;
+use App\Models\RepEmailHistory;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -27,14 +30,14 @@ class Query extends Controller
         ->select('stud_sch_info.ssi_id','stud_per_info.fname','stud_per_info.mname',
         'stud_per_info.lname','stud_per_info.suffix')->get();
     }
-
+    
     public static function getPromissoryCount()
     {
         try{
             return PromissoryNote::select(DB::raw('COUNT(promissory_note.pn_id) as promissory_count'))->get();
         }catch (Exception $e) {}
     }
-
+    
     public static function getStudent($ssi_id)
     {
         $StudentInfo = StudPerInfo::join('stud_sch_info',
@@ -65,7 +68,6 @@ class Query extends Controller
     }
     
     // Get Personal Information
-    // public static function getFullName()
     public static function getFullName($ssi_id)
     {
         try {
@@ -78,7 +80,6 @@ class Query extends Controller
         } catch (Exception $e) {}
     }
 
-    // public static function getContactNumber()
     public static function getContactNumber($ssi_id)
     {
         try {
@@ -94,7 +95,6 @@ class Query extends Controller
         } catch (Exception $e) {}
     }
 
-    // public static function getEmailAccount()
     public static function getEmailAccount($ssi_id)
     {
         try {
@@ -109,8 +109,8 @@ class Query extends Controller
             else{return "";}
         } catch (Exception $e) {}
     }
+
     //Assessment Modules 
-    // public static function getOldAccounts()
     public static function getOldAccounts($ssi_id)
     {
         try{
@@ -137,6 +137,7 @@ class Query extends Controller
         }catch(Exception $e){}
     }
 
+    // Adding of Promissory
     public static function promissoryNoteValidation($eval)
     {
         try {
@@ -191,6 +192,16 @@ class Query extends Controller
                 $filepath ='images/id/'.$last_repID.'/'.$fileName;
             }
             Representative::where('rep_id',$last_repID)->update(array('rep_id_presented'=>$filepath,));
+
+            $em_his = new EmailHistory;
+            $em_his->status='active';
+            $em_his->save();
+            $em_his_id = $em_his->id;
+
+            $rep_em_his = new RepEmailHistory;
+            $rep_em_his->rep_id=$last_repID;
+            $rep_em_his->history_id=$em_his_id;
+            $rep_em_his->save();
 
             return ('Submitted Successfully');
         } catch (Exception $e) { return ("Check Error: "+$e);}
@@ -261,7 +272,7 @@ class Query extends Controller
                     'final' => $final
                 ));
                 $prelim =$midterm= $prefinal =$final = 0;
-
+                
                 // Second Semester
                 $sem =" 2nd semester";
                 for ($j=0; $j < count($PNStatistics); $j++) { //All PN
@@ -330,5 +341,43 @@ class Query extends Controller
         return array(
         'PromissoryNote'=>$PromissoryNote
         );
+    }
+
+    public static function getNofitications()
+    {
+
+        return Notification::join('email_notif','email_notif.notif_id','=','notification.notif_id')
+        ->join('representative','email_notif.rep_id','=','representative.rep_id')
+        ->select(
+        'representative.rep_fullname',
+        'notification.notif_name',
+        'notification.notif_content',
+        'notification.notif_status',
+        'notification.notif_id')
+        ->where('notif_status','active')->get();
+    }
+    public static function getToEmailAccounts()
+    {
+        return EmailHistory::join('rep_email_history','rep_email_history.history_id','=','email_history.history_id')
+        ->join('representative','rep_email_history.rep_id','=','representative.rep_id')
+        ->select(
+        'representative.rep_fullname',
+        'representative.rep_email_address',
+        'email_history.status',
+        'email_history.message',
+        'email_history.history_id')
+        ->where('email_history.status','active')
+        ->get();
+    }
+
+    public static function add_email_history($history_id,$message)
+    {
+        try{
+            EmailHistory::where('history_id',$history_id)
+            ->update(['message' => $message, 'status' => 'done']);
+            return response()->json('success');
+        }catch(Exception $e){
+            return response()->json('error');
+        }
     }
 }

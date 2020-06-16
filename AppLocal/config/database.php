@@ -87,6 +87,21 @@ return [
             'strict' => true,
             'engine' => null,
         ],
+        'databaseama' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST3', 'forge'),
+            'port' => env('DB_PORT3', 'forge'),
+            'database' => env('DB_DATABASE3', 'forge'),
+            'username' => env('DB_USERNAME3', 'forge'),
+            'password' => env('DB_PASSWORD3', 'forge'),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
         
         'pgsql' => [
             'driver' => 'pgsql',

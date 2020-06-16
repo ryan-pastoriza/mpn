@@ -125,12 +125,13 @@ class Search{
 				$('#g_address').val(" ");
 				$('#g_email').val(" ");
 				$('#g_contact').val(" ");
-				swal({
-					title:"Promissory Note Record",
-				  	text: "No Records Found!!!",
-		  			icon: "info",
-				  	buttons: {cancel: "Close",}
-				});
+				// swal({
+				// 	title:"",
+				//   	text: "",
+		  		//		icon: "info",
+				//   	buttons: {cancel: "Close",}
+				// });
+				toastr["info"]("No Records Found!!!", "Promissory Note Record")
 			}
 		}});
 	}
@@ -367,34 +368,36 @@ class Promissory{
 					},
 					success: function(data)
 					{
-						console.log("Console: "+data['message']);
-						$('#sub_g_trans_num').val("");
-						$('#sub_g_fullname').val("");
-						$('#sub_g_address').val("");
-						$('#sub_g_relation').val("");
-						$('#sub_g_idpres').val("");
-						$('#sub_g_relation').val("");
-						$('#sub_g_email').val("");
-						$('#sub_g_contact').val("");
-						$('#sub_g_amount_digits').val("");
-						$('#sub_g_amount_words').val("");
-						$('#sub_g_date_promised').val("");
-						$('#sub_g_remarks').val("");
-						$('#image-file').attr('src', 'images/camera.png');  // Clear the src
-						swal({
-							title:"Promissory message",
-						  	text: data['message'],
-						  	icon: "info",
-						})
+						console.log("Console Message!!!: ");
+						console.log(data['message']);
+						console.log("Console: "+data['exist']);
+						if (data['message']) {
+							$('#sub_g_trans_num').val("");
+							$('#sub_g_fullname').val("");
+							$('#sub_g_address').val("");
+							$('#sub_g_relation').val("");
+							$('#sub_g_idpres').val("");
+							$('#sub_g_relation').val("");
+							$('#sub_g_email').val("");
+							$('#sub_g_contact').val("");
+							$('#sub_g_amount_digits').val("");
+							$('#sub_g_amount_words').val("");
+							$('#sub_g_date_promised').val("");
+							$('#sub_g_remarks').val("");
+							$('#image-file').attr('src', 'images/camera.png');  // Clear the src
+							toastr.success(data['message'],'Promissory Message');
+						}
+
+						if(data['exist']){
+							toastr.success(data['exist'],'Promissory Message');	
+						}
+					},error: function(data){
+						toastr.error('Smething went wrong :(');
 					}});
 				}
 			});
 		}else{
-			swal({
-				title:"Warning",
-			  	text: "Please fill-up the required fields",
-			  	icon: "warning",
-			})
+			toastr.warning('Please fill-up the required fields');
 		}
 	}
 	get(data){
@@ -439,7 +442,7 @@ class Promissory{
                 	'</tr>';
 				}
 			    var dtbl = document.getElementById('promissory_table');
-			    document.getElementById("promissory_table").removeAttribute("class");
+			    dtbl.removeAttribute("class");
 				$('#promissory_table').dataTable().fnClearTable();
 			    $('#promissory_table').dataTable().fnDraw();
 			    $('#promissory_table').dataTable().fnDestroy();
@@ -513,11 +516,14 @@ $(document).ready(function() {
 			search.getstdContact(ssi_id);
 			search.getstdEmail(ssi_id);
 		}else{
-			swal({
-				title:"Missing attribute",
-			  	text: "Check the search content",
-			  	buttons: {cancel: "Close"}
-			})
+			// swal({
+			// 	title:"Missing attribute",
+			//   	text: "",
+			//   	buttons: {cancel: "Close"}
+			// })
+			toastr["warning"]("Check the search content","Missing attribute");
+			// toastr.warning('Missing attribute','Please fill-up the required fields');
+
 		}
 	});
 	$(document).on('click', '#sumbit_promissory', function(e){

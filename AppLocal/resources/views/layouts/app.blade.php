@@ -22,6 +22,7 @@
     {{-- Custom Styles --}}
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link href="{{asset('css/custom-style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/cdn/toastr.min.css')}}" rel="stylesheet">
     @yield('links')
 </head>
 <body class="@yield('theme')">
@@ -69,13 +70,13 @@
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             <i class="material-icons">notifications</i>
-                            <span class="label-count">7</span>
+                            <span id="notif_count" class="label-count"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="header">NOTIFICATIONS</li>
                             <li class="body">
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 254px;"><ul class="menu" style="overflow: hidden; width: auto; height: 254px;">
-                                    <li>
+                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 254px;"><ul id="notif_menu" class="menu" style="overflow: hidden; width: auto; height: 254px;">
+                                    {{-- <li>
                                         <a href="javascript:void(0);" class=" waves-effect waves-block">
                                             <div class="icon-circle bg-light-green">
                                                 <i class="material-icons">person_add</i>
@@ -113,8 +114,8 @@
                                                 </p>
                                             </div>
                                         </a>
-                                    </li>
-                                    <li>
+                                    </li> --}}
+                                    {{-- <li>
                                         <a href="javascript:void(0);" class=" waves-effect waves-block">
                                             <div class="icon-circle bg-orange">
                                                 <i class="material-icons">mode_edit</i>
@@ -126,8 +127,8 @@
                                                 </p>
                                             </div>
                                         </a>
-                                    </li>
-                                    <li>
+                                    </li> --}}
+                                    {{-- <li>
                                         <a href="javascript:void(0);" class=" waves-effect waves-block">
                                             <div class="icon-circle bg-blue-grey">
                                                 <i class="material-icons">comment</i>
@@ -165,7 +166,7 @@
                                                 </p>
                                             </div>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul><div class="slimScrollBar" style="background: rgba(0, 0, 0, 0.5); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 0px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
                             </li>
                             <li class="footer">
@@ -235,13 +236,13 @@
                     <li>
                         <a href="{{URL('inbox')}}">
                             <i class="material-icons">email</i>
-                            <span>Inbox</span>
-                            <p style="
+                            <span>Send Mail</span>
+                            <p id="email_count" style="
                                 position: relative;
                                 top: -1px;
                                 left: 3px;
                                 color:  red;
-                                font-weight: bold;">522</p>
+                                font-weight: bold;">0</p>
                         </a>
                     </li>
                     <li>
@@ -379,5 +380,7 @@
         </div>
     </section>
     @yield('scripts')
+    <script src="{{asset('js/custom/global/init.js')}}"></script>
+    <script src="{{asset('js/cdn/js/toastr.min.js')}}"></script>
 </body>
 </html>

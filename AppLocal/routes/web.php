@@ -68,3 +68,6 @@ Route::get('get/pnstat','StatisticsController@load_statistics_data');
 Route::post('/post/message','SendEmailController@send');
 // Email View
 Route::get('/view_emailtemplate','RouteController@view_emailtemplate');
+Route::get('get/toSendMessage','EmailHistoryController@accounts');
+// notifications
+Route::get('get/notifications','NotificationController@notifications');
