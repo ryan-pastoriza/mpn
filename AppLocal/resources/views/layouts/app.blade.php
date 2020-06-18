@@ -234,16 +234,36 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{URL('inbox')}}">
+                        <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block toggled">
                             <i class="material-icons">email</i>
-                            <span>Send Mail</span>
-                            <p id="email_count" style="
+                            <span>Mail</span>
+                            <p id="email_count1" style="
                                 position: relative;
                                 top: -1px;
                                 left: 3px;
                                 color:  red;
-                                font-weight: bold;">0</p>
+                                font-weight: bold;"></p>
                         </a>
+                        <ul class="ml-menu" style="display: block;">
+                            <li>
+                                <a href="{{URL('inbox')}}" class=" waves-effect waves-block" title="History of parent/guardian who made promissory">
+                                <i class="material-icons">mail</i>
+                                <span>Send Mail</span>
+                                <p id="email_count2" style="
+                                    position: relative;
+                                    top: -1px;
+                                    left: 3px;
+                                    color:  red;
+                                    font-weight: bold;"></p>        
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{URL('view_email_history')}}" class=" waves-effect waves-block" title="Reports of students who made promissory notes">
+                                <i class="material-icons">history</i>
+                                <span>Email History</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block toggled">

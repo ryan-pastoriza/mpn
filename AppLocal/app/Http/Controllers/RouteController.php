@@ -57,4 +57,8 @@ class RouteController extends Controller
     public function view_emailtemplate(){
         return view('pages.email.dynamic_email_template');
     }
+
+    public function view_emailhistory(){
+        return view('pages.inbox.email_history');
+    }
 }

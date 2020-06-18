@@ -380,4 +380,18 @@ class Query extends Controller
             return response()->json('error');
         }
     }
+
+    public static function getEmailHistory()
+    {
+        return EmailHistory::join('rep_email_history','rep_email_history.history_id','=','email_history.history_id')
+        ->join('representative','rep_email_history.rep_id','=','representative.rep_id')
+        ->select(
+        'representative.rep_fullname',
+        'representative.rep_email_address',
+        'email_history.status',
+        'email_history.message',
+        'email_history.history_id')
+        ->where('email_history.status','done')
+        ->get();
+    }
 }

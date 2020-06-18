@@ -39,32 +39,36 @@ $(window).load(function(){
 			$('#notif_count').html(notif_count);
 		}
 	});
-
-	// To Message
-	var to_send_count=0;
-	$.ajax({
-	type:"get",
-	url:"get/toSendMessage",
-	dataType:'json',
-	data: {},
-	success: function(data)
-	{
-		console.log(data);
-		for (var i = 0; i < data.length; i++) {
-			to_send_count+=1;
-			$('.to_mail_list').append('<a href="javascript:void(0);" class="waves-effect waves-block e_accounts" name="'+data[i].rep_fullname+'" id="'+data[i].history_id+'" email="'+data[i].rep_email_address+'">'
-	     		+'	<div class="menu-info">'
-	     		+'		<p><i class="material-icons">mail_outline</i>'
-	     		+'		<b style="top:-100px;">'+data[i].rep_fullname+'</b>'
-	     		+'		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[i].rep_email_address
-	     		+'		</p>'
-	     		+'	</div>'
-	     		+'</a>'
-         		);
-		}
-		$('#email_count').html(to_send_count);
-	}});
-
+	try{
+		// To Message
+		var to_send_count=0;
+		$.ajax({
+		type:"get",
+		url:"get/toSendMessage",
+		dataType:'json',
+		data: {},
+		success: function(data)
+		{
+			console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				to_send_count+=1;
+				$('.to_mail_list').append('<a href="javascript:void(0);" class="waves-effect waves-block e_accounts" name="'+data[i].rep_fullname+'" id="'+data[i].history_id+'" email="'+data[i].rep_email_address+'">'
+		     		+'	<div class="menu-info">'
+		     		+'		<p><i class="material-icons">mail_outline</i>'
+		     		+'		<b style="top:-100px;">'+data[i].rep_fullname+'</b>'
+		     		+'		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[i].rep_email_address
+		     		+'		</p>'
+		     		+'	</div>'
+		     		+'</a>'
+	         		);
+			}
+			if (to_send_count!=0) {
+				$('#email_count1').html(to_send_count);
+				$('#email_count2').html(to_send_count);
+			}
+		}});
+	}catch(e){}
+	
 });
 $(document).on('click','.a_notif',function(){
 	console.log($(this).attr('id'));
