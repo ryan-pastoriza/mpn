@@ -399,6 +399,7 @@
             @yield('content')
         </div>
     </section>
+    <script src="{{asset('js/custom/global/init_elements.js')}}"></script>
     @yield('scripts')
     <script src="{{asset('js/custom/global/init.js')}}"></script>
     <script src="{{asset('js/cdn/js/toastr.min.js')}}"></script>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\OAParticularAmount;
 use App\Models\FeeSchedule;
+use App\Models\Payments;
+use App\Models\Discount;
 use App\Models\StudSchInfo;
 use App\Models\Assessment;
 use App\Models\PhoneNumber;
@@ -133,21 +135,39 @@ class Query extends Controller
                     ['sy.sy','=', strval($sy)],
                     ['assessment.ssi_id', '=', $ssi_id]])
             ->get()[0]->totalBill;
-            return response()->json(array('totalBill'=>$Amount));
+
+            $Payments =Payments::join('paymentdetails','paymentdetails.paymentId','=','payments.paymentId')
+            ->join('assessment','assessment.assessmentId','=','paymentdetails.assessmentId')
+            ->join('sy',[['payments.syId','=','sy.syId'],['assessment.syId','=','sy.syId']])
+            ->join('sem',[['payments.semId','=','sem.semId'],['assessment.semId','=','sem.semId']])
+            ->select(DB::raw("payments.amt2 as amt2"))->distinct()
+            ->where([['payments.semId', '=', $sem],
+                    ['sy.sy','=', strval($sy)],
+                    ['payments.ssi_id', '=', $ssi_id]])
+            ->get();
+
+            $Discount = Discount::join('sem','discount.semId','=','sem.semId')
+            ->join('sy','discount.syId','=','sy.syId')
+            ->select(DB::raw("discount.amt2 as amount"))->distinct()
+            ->where([['discount.semId', '=', $sem],
+                    ['sy.sy','=', strval($sy)],
+                    ['discount.ssi_id', '=', $ssi_id]])
+            ->get();
+            $Amount = is_null($Amount)? 0.00:$Amount;
+            $Discount = sizeof($Discount)>0? $Discount[0]->amount:0.00;
+            $Payments = sizeof($Payments)>0? $Payments[0]->amt2:0.00;
+            // $Discount = is_null($Discount) ? 0:$Discount[0]->amount;
+            return response()->json(array('totalBill'=>$Amount,'Payments'=>$Payments,'Discount'=>$Discount));
         }catch(Exception $e){}
     }
 
     // Adding of Promissory
     public static function promissoryNoteValidation($eval)
     {
-        try {
-            return PromissoryNote::select(DB::raw('COUNT(promissory_note.pn_ssi_id) as exist'))
-            ->where([['promissory_note.pn_ssi_id','=',$eval['ssi_id']],['promissory_note.pn_school_yr','=',$eval['sub_g_sy']],
-            ['promissory_note.pn_semester','=',$eval['sub_g_semester']],['promissory_note.pn_term','=',$eval['sub_g_term']]])
-            ->get()[0]->exist;
-        } catch (Exception $e) {
-        var_dump($e);
-        }
+        return PromissoryNote::select(DB::raw('COUNT(promissory_note.pn_ssi_id) as exist'))
+        ->where([['promissory_note.pn_ssi_id','=',$eval['ssi_id']],['promissory_note.pn_school_yr','=',$eval['sub_g_sy']],
+        ['promissory_note.pn_semester','=',$eval['sub_g_semester']],['promissory_note.pn_term','=',$eval['sub_g_term']]])
+        ->get()[0]->exist;
     }
     
     public static function addPromissoryNote($data)

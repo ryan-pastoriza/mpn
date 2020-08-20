@@ -1,64 +1,11 @@
-function require(script) {
-    $.ajax({
-        url: script,
-        dataType: "script",
-        async: false,           // <-- This is the key
-        success: function () {},
-        error: function () {
-            throw new Error("Could not load script " + script);
-        }
-    });
-}
-$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 require("js/custom/home/amount-to-words.js");
 require("js/custom/video/webcam.min.js");
 require("js/custom/video/capture.js");
 
-class ElementBuilder{
-	addElement(parentId="", elementTag="", elementType="",
-			   elementId="", elementClass="", value="",
-			   dataToggle, dataTarget="", html="") {
-	    try{
-			// Add html element to the page
-		    var p = document.getElementById(parentId);
-		    var newElement = document.createElement(elementTag);
-		    newElement.setAttribute('type', elementType);
-		    newElement.setAttribute('id', elementId);
-		    newElement.setAttribute('class', elementClass);
-		    newElement.setAttribute('value', value);
-		    newElement.setAttribute('data-toggle', dataToggle);
-		    newElement.setAttribute('data-target', dataTarget);
-		    newElement.innerHTML = html;
-		    p.appendChild(newElement);
-		}catch(e){}
-	}
-	appendElement(parentId="",html=""){
-	 	try{
-			// Append html element to the page
-		    var p = document.getElementById(parentId);
-		    p.innerHTML = html;
-		}catch(e){alert(e.message);}
-	}
-	removeElement(elementId) {
-		try{
-		    // Remove an element to the page
-		    var element = document.getElementById(elementId);
-		    element.parentNode.removeChild(element);
-		}catch(e){}
-	}
-	clearChildElements(elementId){
-		try{
-		    // Remove an element to the page
-		    var element = document.getElementById(elementId);
-		    element.innerHTML ="";
-		}catch(e){}
-	}
-}
-
 class Search{
 	searchStudent(ssi_id){
 		// console.log("got in searchStudent",ssi_id,stud_year,stud_semester,stud_term);
-		let EBuild = new ElementBuilder;
+		
 		$.ajax({
 		type:"GET",
 		url:"search/student",
@@ -133,11 +80,12 @@ class Search{
 				// });
 				toastr["info"]("No Records Found!!!", "Promissory Note Record")
 			}
+			
 		}});
 	}
 	getTotalbill(ssi_id,stud_year,stud_semester){
 		// console.log("got in totalbill",ssi_id,stud_year,stud_semester,stud_term);
-		let EBuild = new ElementBuilder;
+		
 		$.ajax({
 		type:"GET",
 		url:"get/totalbill",
@@ -150,79 +98,42 @@ class Search{
 		success: function(data)
 		{
 			EBuild.clearChildElements("assessment");
-			console.log(data['totalBill']);
 			if (data['totalBill'])
 			{
-				// document.getElementById('assessment_count').innerHTML=1;
-				// var assessment_division_found = document.getElementById("assessment_division_found");
-				// var assessment_division_not_found = document.getElementById("assessment_division_not_found");
-				// if(assessment_division_found){
-				// 	EBuild.removeElement("assessment_division_found");
-				// }
-				// if(assessment_division_not_found){
-				// 	EBuild.removeElement("assessment_division_not_found");
-				// }
-				var $html = (
-                '<div class="row">'+
-                    '<div class="col-sm-3">'+
-                        '<label class="form-label Floating">Prelim</label>'+
-                    	'<input type="text" id="assess_prelim" class="form-control" value=" " readonly>'+
-                    '</div>'+
-                    '<div class="col-sm-3">'+
-                        '<label class="form-label">Midterm</label>'+
-                        '<input type="text" id="assess_midterm" class="form-control" value=" " readonly>'+
-                    '</div>'+
-                    '<div class="col-sm-3">'+
-                        '<label class="form-label">Pre Final</label>'+
-                        '<input type="text" id="assess_prefi" class="form-control" value=" " readonly>'+
-                    '</div>'+
-                    '<div class="col-sm-3">'+
-                        '<label class="form-label">Final</label>'+
-                        '<input type="text" id="assess_final" class="form-control" value=" " readonly>'+
-                	'</div>'+
-                '</div>'+
-                '<div class="row">'+
-                    '<div class="col-sm-4">'+
-                        '<label class="form-label Floating">Total Assessment</label>'+
-                        '<input type="text" id="assess_total_bill" class="form-control" value=" " readonly>'+
-                    '</div>'+
-                '</div>');
-				EBuild.addElement("assessment", "div", "", "assessment_division_found","row","","", "",$html);
 				var $partial=("<h5>Partial payment must be at least <b style='color:red;'>₱ 1,500<b></h5>");
-				EBuild.addElement("assessment_division_found", "span", "", "assessment_partial","","","", "",$partial);
+				$("#assessment_status").html($partial);
 			}else
 			{
-				//document.getElementById('assessment_count').innerHTML=0;
-				// var assessment_division_found = document.getElementById("assessment_division_found");
-				// var assessment_division_not_found = document.getElementById("assessment_division_not_found");
-				// if(assessment_division_found){
-				// 	EBuild.removeElement("assessment_division_found");
-				// }
-				// if(assessment_division_not_found){
-				// 	EBuild.removeElement("assessment_division_not_found");
-				// }
-				var $html = (
-				'<div class="col-sm-12">'+
-					'<h5>No Record Found</h5>'+
-				'</div>');
-				EBuild.addElement("assessment", "div", "", "assessment_division_not_found","row","","", "",$html);
+				$("#assessment_status").html("");
 			}
 			console.log("totalbill: "+data['totalBill']);
+			console.log("Payments: "+data.Payments);
+			console.log("Discount: "+data.Discount);
 			var total_bill =data['totalBill']; //(student_bill.billAmount)
+			var payment =data['Payments']; //(student_bill.billAmount)
+			var discount =0; //(student_bill.billAmount)
 			var Prelim_percent =0.45; //(fee_schedule.percent)
 			var Midterm_percent =0.65; //(fee_schedule.percent)
 			var Pre_final_percent =0.85; //(fee_schedule.percent)
 			var Final_percent =1; //(fee_schedule.percent)
 			
-			var Prelim_breakdown = Prelim_percent * total_bill;
-			total_bill = total_bill - Prelim_breakdown;
-			var Midterm_breakdown = Midterm_percent * total_bill;
-			total_bill = total_bill - Midterm_breakdown;
-			var Pre_final_breakdown = Prelim_percent * total_bill;
-			total_bill = total_bill - Pre_final_breakdown;
-			var Final_breakdown = Final_percent * total_bill;
-			var Total_breakdown = Prelim_breakdown+Midterm_breakdown+Pre_final_breakdown+Final_breakdown;
-			$('#assess_total_bill').val("₱ "+Total_breakdown.toFixed(2)+" ");
+			var Prelim_breakdown = (Prelim_percent * total_bill)-discount-payment;
+			if (Prelim_breakdown<0) {
+				Prelim_breakdown=0;
+			}
+			var Midterm_breakdown = (Midterm_percent * total_bill)-discount-payment-Prelim_breakdown;
+			if (Midterm_breakdown<0) {
+				Midterm_breakdown=0;
+			}
+			var Pre_final_breakdown = (Pre_final_percent * total_bill)-discount-payment-Prelim_breakdown-Midterm_breakdown;
+			if (Pre_final_breakdown<0) {
+				Pre_final_breakdown=0;
+			}
+			var Final_breakdown = (Final_percent * total_bill)-discount-payment-Prelim_breakdown-Midterm_breakdown-Pre_final_breakdown;
+			if (Final_breakdown<0) {
+				Final_breakdown=0;
+			}
+			$('#assess_total_bill').val("₱ "+total_bill.toFixed(2)+" ");
 			$('#assess_prelim').val("₱ "+Prelim_breakdown.toFixed(2)+" ");
 			$('#assess_midterm').val("₱ "+Midterm_breakdown.toFixed(2)+" ");
 			$('#assess_prefi').val("₱ "+Pre_final_breakdown.toFixed(2)+" ");
@@ -231,7 +142,6 @@ class Search{
 	}
 	getoldaccounts(ssi_id){
 		// console.log("got in oldaccounts",ssi_id);
-		let EBuild = new ElementBuilder;
 		$.ajax({
 		type:"GET",
 		url:"get/oldaccounts",
@@ -401,7 +311,6 @@ class Promissory{
 		}
 	}
 	get(data){
-		let EBuild = new ElementBuilder;
 		try{
 			$.ajax({
 			type:"GET",
