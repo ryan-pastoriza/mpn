@@ -183,18 +183,55 @@ class Query extends Controller
                     echo "old_discount: ".$old_discount." ";
                     echo "old_payment: ".$old_assessment." ";
                     echo("balance: ".$balance."\n");
-                    
+
+                    if(strpos($course, "SENIORHIGH") !== false)
+                    {//bridging
+                        $bridgtotal=DB::raw("SELECT
+                                (Sum(tbl_schedule.Total_credit_unit)*(SELECT
+                                    course.Unit
+                                From
+                                    course
+                                Where
+                                    course.sy = '{$sy}' AND
+                                    course.sem = '{$sem}' AND
+                                    course.course = '{$course}' AND
+                                    course.`status` = '{$status}' LIMIT 1)) as `amt`
+                            From
+                                tbl_stud_load
+                            INNER JOIN tbl_bridging_subj ON tbl_stud_load.Subject_code = tbl_bridging_subj.Subject_code
+                            INNER JOIN tbl_schedule ON tbl_stud_load.Subject_code = tbl_schedule.Subject_code
+                            Where
+                                tbl_bridging_subj.sem = '{$sem}' AND
+                                tbl_bridging_subj.sy = '{$sy}' AND
+                                tbl_stud_load.sem_load = '{$sem}' AND
+                                tbl_stud_load.yearLoad = '{$sy}' AND
+                                tbl_stud_load.acctno = '{$acct_no}'"
+                        );
+                        //bridging payment
+                        $bridgpayment=DB::raw("SELECT
+                                Sum(tbl_bridging_payment.amount) as `amt`
+                            FROM `tbl_bridging_payment`
+                            WHERE
+                                `sem` = '{$sem}' AND
+                                `sy` = '{$sy}' AND
+                                `acctno` = '{$acct_no}'"
+                        );
+                        $bridgtotal=$bridgtotal-$bridgpayment;
+                    }else
+                    {
+                        $tutortotal=(new Query)->gettutorial($sy,$sem,$course,$status,$acct_no);
+                    }
+
                     if($balance>0.4 || $bridgtotal>0.4 || $tutortotal>0.4)
                     {
-                        $data+=["sy"=>$sy,"sem"=>$sem,"assessment"=>(new Query)->checknegative($balance),"bridg"=>(new Query)->checknegative($bridgtotal),"tutorial"=>(new Query)->checknegative($tutortotal)];
+                        $data[]=["sy"=>$sy,"sem"=>$sem,"assessment"=>(new Query)->checknegative($balance),"bridging"=>(new Query)->checknegative($bridgtotal),"tutorial"=>(new Query)->checknegative($tutortotal)];
                     }
                 }
-                // return response()->json(array('old_assessment'=>$old_assessment,
-                //                             'old_discount'=>$old_discount,  
-                //                             'old_payment'=>$old_payment));
             }
-            echo "\n";
-            return json_encode($data);
+            return $data;
+            // return response()->json(array('old_assessment'=>$old_assessment,
+            //                             'old_discount'=>$old_discount,
+            //                             'old_payment'=>$old_payment));
         }catch(Exception $e) {}
     }
 
@@ -207,14 +244,73 @@ class Query extends Controller
         }
     }
 
-    public function checkoldsys($acctno)
+    function gettutorial($sy,$sem,$course,$status,$acctno)
     {
-
-    }
-
-    public function gettutorial($sy,$sem,$course,$status,$acctno)
-    {
-        # code...
+        $amt=0;
+        $tpu=0;
+        $nou=0;
+        $rnoe=15;
+        $noe=0;
+        $pay=0;
+        $query1 = DB::raw("SELECT
+            course.Unit
+        From
+            course
+        Where
+            course.sy = '{$sy}' AND
+            course.sem = '{$sem}' AND
+            course.course = '{$course}' AND
+            course.`status` = '{$status}'");
+        if ($query1)
+        {
+            foreach ($query1 as $row1)
+            {
+                $tpu=$row1->Unit;
+            }
+        }
+        $query2 = DB::raw("SELECT
+            tbl_schedule.no_of_enrollees,
+            tbl_schedule.Total_credit_unit
+        From
+            tbl_stud_load
+        INNER JOIN tbl_tutorial_subj ON tbl_stud_load.Subject_code = tbl_tutorial_subj.Subject_code
+        INNER JOIN tbl_schedule ON tbl_stud_load.Subject_code = tbl_schedule.Subject_code
+        Where
+            tbl_tutorial_subj.sem = '{$sem}' AND
+            tbl_tutorial_subj.sy = '{$sy}' AND
+            tbl_stud_load.sem_load = '{$sem}' AND
+            tbl_stud_load.yearLoad = '{$sy}' AND
+            tbl_stud_load.acctno = '{$acctno}'
+        Group by tbl_stud_load.Subject_code ");
+        if ($query2)
+        {
+            foreach ($query2 as $row2)
+            {
+                $noe=$row2->no_of_enrollees;
+                $nou=$row2->Total_credit_unit;
+                $amt=($tpu*$nou*($rnoe-$noe))/$noe;
+            }
+        }
+        $query3 = DB::raw("SELECT
+            Sum(tbl_tut_payment_details.amount) AS `amt`
+        From tbl_tutorial_payment
+        INNER JOIN tbl_tut_payment_details ON tbl_tutorial_payment.tut_payment_ID = tbl_tut_payment_details.tut_payment_ID
+        WHERE
+            tbl_tutorial_payment.acctno = '{$acctno}' AND
+            tbl_tutorial_payment.sy = '{$sy}' AND
+            tbl_tutorial_payment.sem = '{$sem}'");
+        if ($query3)
+        {
+            foreach ($query3 as $row3)
+            {
+                $pay+=$row3->amt;
+            }
+        }
+        if($amt>0)
+        {
+            $amt=$amt-$pay;
+        }
+        return round($amt);
     }
 
     public static function getTotalBill($ssi_id, $sy, $sem)
