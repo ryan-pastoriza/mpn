@@ -221,7 +221,7 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
+                    <li {{-- class="active" --}}>
                         <a href="{{URL('dashboard')}}">
                             <i class="material-icons">dashboard</i>
                             <span>Dashboard</span>

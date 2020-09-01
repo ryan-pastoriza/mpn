@@ -1,4 +1,6 @@
 $(window).load(function(){
+    var loading = document.getElementById("loading");
+    loading.removeAttribute('hidden','');
     $.ajax({
         type:"GET",
         url:"get/pnstat",
@@ -7,6 +9,7 @@ $(window).load(function(){
         success: function(data)
         {
             getMorris('bar', 'bar_chart',data);
+            loading.setAttribute('hidden','');
         }
     });
 });

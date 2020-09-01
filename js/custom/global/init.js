@@ -1,5 +1,16 @@
 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
+// function reset_attr(){
+// 	$("#dashboard").attr('class','');
+// 	$("#promissory").attr('class','');
+// 	$("#email_tab").attr('class','');
+// 	$("#email").attr('class','');
+// 	$("#email_history").attr('class','');
+// 	$("#reports_tab").attr('class','');
+// 	// $("#parent_report").attr('class','');
+// 	// $("#promissory_report").attr('class','');
+// }
+
 $(window).load(function(){
 	toastr.options = {
 	  "preventDuplicates": true
@@ -71,7 +82,18 @@ $(window).load(function(){
 	},error: function(data){
 		// toastr['error'](data,"Error");
 	}});
-});
-$(document).on('click','.a_notif',function(){
-	console.log($(this).attr('id'));
+
+	// if ($("#page_id").val() =="dashboard") {
+	// 	$("#dashboard").attr('class','active');
+	// }else if($("#page_id").val() =="promissory"){
+	// 	$("#promissory").attr('class','active');
+	// }else if($("#page_id").val() =="inbox"){
+	// 	$("#email").attr('class','active');
+	// }else if($("#page_id").val() =="email_history"){
+	// 	$("#email_history").attr('class','active');
+	// }else if($("#page_id").val() =="parent_report"){
+	// 	$("#parent_report").attr('class','active');
+	// }else if($("#page_id").val() =="promissory_report"){
+	// 	$("#promissory_report").attr('class','active');
+	// }
 });

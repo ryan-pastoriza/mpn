@@ -26,13 +26,17 @@
                                             <i class="material-icons">more_vert</i>
                                         </a>
                                         <ul class="dropdown-menu pull-right">
-                                            <li><a onclick='printJ("#bar_chart")'>Print</a></li>
+                                            <li>
+                                                <a onclick='printJ("#bar_chart")'>Print
+                                                <i class="material-icons">printer</i></a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
                             <div class="body" style="overflow-x: scroll;">
                                 {{-- <div id="line_chart" class="graph" hidden=""></div> --}}
+                                <center><img id="loading" src="images/loading.gif" width="20" height="20" hidden></center>
                                 <div class="printme" id="bar_chart" class="graph"></div>
                             </div>
                         </div>

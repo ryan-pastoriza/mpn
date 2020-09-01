@@ -23,6 +23,7 @@
 @section('form-name'){{'PARENT/GUARDIAN-REPORT'}}@endsection
 
 @section('content')
+    <input id="page_id" value="parent_report" hidden>
     {{-- Parent and guardian--}}
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

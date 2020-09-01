@@ -23,6 +23,7 @@
 @section('form-name'){{'DASHBOARD'}}@endsection
 
 @section('content')
+    <input id="page_id" value="dashboard" hidden>
     @include('pages.dashboard.statistics')
 @endsection
 

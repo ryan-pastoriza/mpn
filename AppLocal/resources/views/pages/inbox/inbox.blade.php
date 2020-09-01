@@ -8,10 +8,6 @@
 	<link href="{{asset('plugins/animate-css/animate.css')}}" rel="stylesheet" />
     {{-- WaitMe Css --}}
     <link href="{{asset('plugins/waitme/waitMe.css')}}" rel="stylesheet" />
-    {{-- JQuery DataTable Css --}}
-    {{-- <link href="{{asset('plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css')}}" rel="stylesheet"> --}}
-	 {{-- Morris Chart Css --}}
-	<link href="{{asset('plugins/morrisjs/morris.css')}}" rel="stylesheet" />
 	{{-- Custom Css --}}
 	<link href="{{asset('css/compose/compose-style.css')}}" rel="stylesheet">
 	{{-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes --}}
@@ -21,6 +17,7 @@
 @section('theme'){{ config('app.theme', 'theme-blue-grey') }}@endsection
 
 @section('content')
+<input id="page_id" value="inbox" hidden>
 <div class="card">
 	<div class="row clearfix">
 		<form>
@@ -38,7 +35,7 @@
 			            			<label for="email">To: <span id="actt_name"></span></label>
 			            			<img id="img_sending" src="images/loading.gif" width="20" height="20" hidden>
 		            				<small id="span_sending" hidden>Sending...</small>
-			            			<input type="email" id="email" name="email" class="form-control" placeholder="EmailAccount@gmail.com" required></input>
+			            			<input type="email" id="email" name="email" class="form-control" placeholder="EmailAccount@gmail.com" required>
 			            		</div>
 			            	</div>
 			            	<div class="row">
@@ -96,7 +93,8 @@
 	<script src="{{asset('plugins/jquery-sparkline/jquery.sparkline.js')}}"></script>
 	{{-- Custom Js --}}
 	<script src="{{asset('js/admin.js')}}"></script>
-    {{-- <script src="{{asset('js/cdn/jquery/jquery.number.min.js')}}"></script> --}}
+	{{-- Page Cards --}}
     <script src="{{asset('js/pages/cards/colored.js')}}"></script>
+    {{-- Script Using Email Validation and Sending... --}}
     <script src="{{asset('/js/custom/mail/message.js')}}"></script>
 @endsection

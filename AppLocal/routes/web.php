@@ -13,7 +13,8 @@
 
 // testers
 // Route::get('api/getPromissoryCount','Api\Query@getPromissoryCount');
-Route::get('api/acct_no','Api\Query@getacct_no');
+Route::get('api/acct_no','Api\Query@getAcctNumber');
+Route::get('api/student_status','Api\Query@getStudentStatus');
 // Route::get('api/ssi_id','Api\Query@getssi_id');
 // Route::get('api/contact','Api\Query@getContactNumber');
 // Route::get('api/email','Api\Query@getEmailAccount');

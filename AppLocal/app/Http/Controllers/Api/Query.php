@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\OAParticularAmount;
 use App\Models\FeeSchedule;
 use App\Models\Payments;
 use App\Models\Discount;
 use App\Models\StudSchInfo;
 use App\Models\Assessment;
+use App\Models\OldAssessment;
+use App\Models\OldBridgingPayment;
+use App\Models\OldCourse;
+use App\Models\OldDiscount;
+use App\Models\OldEnrolled;
+use App\Models\OldPayment;
+use App\Models\OldStudLoad;
+use App\Models\OldTutPayment;
 use App\Models\PhoneNumber;
 use App\Models\PromissoryNote;
 use App\Models\Representative;
@@ -112,18 +119,102 @@ class Query extends Controller
         } catch (Exception $e) {}
     }
 
+    public function getAcctNumber($ssi_id)
+    {   //$ssi_id = 7551;
+        $acctno = StudSchInfo::select('stud_sch_info.acct_no')->where('stud_sch_info.ssi_id',$ssi_id)->get();
+        return sizeof($acctno)>0? $acctno[0]->acct_no:"";
+    }
+
+    public function getStudentStatus()
+    {
+        $acctno= "05-2-01711";
+        return OldEnrolled::select('enrolled.course','enrolled.sy','enrolled.sem','enrolled.status')->where('enrolled.acctno',$acctno)
+        ->orderBy('enrolled.sy','DESC','enrolled.sem','DESC')->get();
+    }
+
     //Assessment Modules 
     public static function getOldAccounts($ssi_id)
     {
+        // ssi_id = 7551;
+        // $acctno= "05-2-01711";
+        $acct_no = (new Query)->getAcctNumber($ssi_id);
+        $data=array();
+        $balance=0;
+        $old_assessment=0;
+        $old_discount=0;
+        $old_payment=0;
+        $bridgtotal=0;
+        $bridgpayment=0;
+        $tutortotal=0;
+
         try{
-            return OAParticularAmount::join('oa_student','oa_particular_amount.oaStudentId','=','oa_student.oaStudentId')
-            ->select('oa_particular_amount.oaSem AS semester', 'oa_particular_amount.oaSy AS school_year',
-            DB::raw('Sum(oa_particular_amount.oaAmount) AS totalOld'))
-            ->where('oa_student.ssi_id', '=', $ssi_id)
-            ->groupBy('oa_particular_amount.oaSem','oa_particular_amount.oaSy')
-            ->orderBy('oa_particular_amount.oaSy', 'DESC','oa_particular_amount.oaSem', 'ASC')
-            ->get();
+            $old_enrolled = OldEnrolled::select('enrolled.sy','enrolled.sem','enrolled.status')->where('enrolled.acctno',$acct_no)
+            ->orderBy('enrolled.sy','ASC','enrolled.sem','ASC')->get();
+            if ($old_enrolled) {
+                foreach ($old_enrolled as $row) {
+                    $course=$row->course;
+                    $sy = $row->sy;
+                    $sem = $row->sem;
+                    $status=$row->status;
+
+                    echo($course." ".$sy." ".$sem." ".$status." ");
+
+                    $old_assessment = OldAssessment::select(DB::raw('Sum(tbl_assessment_copy.amt) as amt'))
+                    ->where([['tbl_assessment_copy.acctno',$acct_no],
+                        ['tbl_assessment_copy.sy',$sy],
+                        ['tbl_assessment_copy.sem',$sem]])->get();
+
+                    $old_discount = OldDiscount::select(DB::raw('Sum(tbl_discount2.amt) as amt'))
+                    ->where([['tbl_discount2.acctno',$acct_no],
+                        ['tbl_discount2.sy',$sy],
+                        ['tbl_discount2.sem',$sem]])->get();
+
+                    $old_payment = OldPayment::select(DB::raw('Sum(payment.Amt) AS amt'))
+                    ->where([['payment.acctno',$acct_no],
+                        ['payment.sy',$sy],
+                        ['payment.sem',$sem]])->get();
+
+                    $old_assessment = (sizeof($old_assessment)>0? $old_assessment[0]->amt:0);
+                    $old_discount = (is_null($old_discount[0]->amt)? 0.00:$old_discount[0]->amt);
+                    $old_payment = (sizeof($old_payment)>0? $old_payment[0]->amt:0);
+
+                    $balance=$old_assessment-$old_discount-$old_payment;
+                    echo "Assessment: ".$old_assessment." ";
+                    echo "old_discount: ".$old_discount." ";
+                    echo "old_payment: ".$old_assessment." ";
+                    echo("balance: ".$balance."\n");
+                    
+                    if($balance>0.4 || $bridgtotal>0.4 || $tutortotal>0.4)
+                    {
+                        $data+=["sy"=>$sy,"sem"=>$sem,"assessment"=>(new Query)->checknegative($balance),"bridg"=>(new Query)->checknegative($bridgtotal),"tutorial"=>(new Query)->checknegative($tutortotal)];
+                    }
+                }
+                // return response()->json(array('old_assessment'=>$old_assessment,
+                //                             'old_discount'=>$old_discount,  
+                //                             'old_payment'=>$old_payment));
+            }
+            echo "\n";
+            return json_encode($data);
         }catch(Exception $e) {}
+    }
+
+    public function checknegative($val)
+    {
+        if ($val>0) {
+            return $val;
+        }else{
+            return 0;
+        }
+    }
+
+    public function checkoldsys($acctno)
+    {
+
+    }
+
+    public function gettutorial($sy,$sem,$course,$status,$acctno)
+    {
+        # code...
     }
 
     public static function getTotalBill($ssi_id, $sy, $sem)
@@ -156,7 +247,6 @@ class Query extends Controller
             $Amount = is_null($Amount)? 0.00:$Amount;
             $Discount = sizeof($Discount)>0? $Discount[0]->amount:0.00;
             $Payments = sizeof($Payments)>0? $Payments[0]->amt2:0.00;
-            // $Discount = is_null($Discount) ? 0:$Discount[0]->amount;
             return response()->json(array('totalBill'=>$Amount,'Payments'=>$Payments,'Discount'=>$Discount));
         }catch(Exception $e){}
     }

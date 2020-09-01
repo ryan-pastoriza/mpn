@@ -62,6 +62,9 @@ function checkoldsys($acctno)
 					payment.SEM = '{$sem}' AND
 					payment.`MODE` = 'cash'"
 			);
+
+			//Add Old Account, Bridging Balance and Tutorial Balance 
+
 			$balance=$assesstotal-$discount-$payment;
 			if(strpos($course, "SENIORHIGH") !== false){
 				//bridging
@@ -112,7 +115,7 @@ function checkoldsys($acctno)
 				$tutortotal=$tutortotal-$p3;
 				if($balance>0.4 || $bridgtotal>0.4 || $tutortotal>0.4)
 				{
-					$data[]=["sy"=>$sy,"sem"=>$sem,"ass"=>$this->checkneg($balance),"bridg"=>$this->checkneg($bridgtotal),"tutorial"=>$this->checkneg($tutortotal)];
+					$data[]=array["sy"=>$sy,"sem"=>$sem,"ass"=>$this->checkneg($balance),"bridg"=>$this->checkneg($bridgtotal),"tutorial"=>$this->checkneg($tutortotal)];
 				}
 
 			}
